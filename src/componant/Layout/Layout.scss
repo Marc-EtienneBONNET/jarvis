@@ -1,0 +1,19 @@
+.myLayout{
+    display: grid;
+    grid-template: 5vw;
+    height: 80vh;
+    margin-top: 10vh;   
+}
+
+.btnMenu
+{
+    text-align: center;
+    background: transparent;
+    border: 0px solid transparent;
+    color:black;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 4vh;
+    &:hover{
+        color: white;
+    }
+}
