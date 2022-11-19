@@ -1,0 +1,81 @@
+
+.divEvent{
+   // margin-top: 53%;
+    // width : 9.3vw;
+    position: absolute;
+    border-radius: 5px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    min-height: 1.5vh;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+
+.specialTravailPro{
+    background: rgb(225,112,85, 30%);
+    transition: all 0.3s;
+    &:hover{
+        background: rgb(255,0,0, 90%);
+        opacity: 100%;
+    }
+}
+.specialTravailPerso{
+    background: rgb(9,132,227, 30%);
+    transition: all 0.3s;
+    &:hover{
+        background: rgb(255,0,0, 90%);
+        opacity: 100%;
+
+    }
+}
+.specialRdvPro{
+    background: rgb(214,48,49, 30%);
+    transition: all 0.3s;
+    &:hover{
+        background: rgb(255,0,0, 90%);
+        opacity: 100%;
+
+    }
+}
+.specialRdvPerso{
+    background: rgb(0,206,201, 30%); 
+    transition: all 0.3s;
+    &:hover{
+        background: rgb(255,0,0, 90%);
+        opacity: 100%;
+    }
+}
+.specialEvenementExeptionnel{
+    background: rgb(253,203,110, 30%);
+    transition: all 0.3s;
+    &:hover{
+        background: rgb(255,0,0, 90%);
+        opacity: 100%;
+
+    }
+}
+.specialOrganisation{
+    background: rgb(0,184,148, 30%);
+    transition: all 0.3s;
+    &:hover{
+        background: rgb(255,0,0, 90%);
+        opacity: 100%;
+    
+    }
+}
+
+
+.divEventTitre{
+    opacity: 100%;
+    margin: 0px;
+    padding: 0px;
+    //font-size:2vh;
+}
+
+.divEventDetail{
+    opacity: 100%;
+    margin: 0px;
+    padding: 0px;
+    //font-size:1.5vh;
+}

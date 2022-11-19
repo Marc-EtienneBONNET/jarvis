@@ -1,0 +1,22 @@
+.agendaSemaineHoraires{
+    margin-top: 2vh;
+    word-wrap: break-word;
+}
+
+.agendaSemaineHoraire{
+    height: 4vh;
+    word-wrap: break-word;
+    display: grid;
+    grid-template-columns: 3vw 89vw;
+}
+
+.agendaSemaineHoraireHeur{
+    height:4vh;
+    margin: 0px;
+    padding: 0px;
+}
+.agendaSemaineHoraireLigne{
+    background: black;
+    height:0.1vh;
+    opacity: 0.1;
+}

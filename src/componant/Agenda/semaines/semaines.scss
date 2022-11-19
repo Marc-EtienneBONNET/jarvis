@@ -1,0 +1,49 @@
+.agendaSemaine{
+    height: 90%;
+    // display: grid;
+    // grid-template-columns: 4% 96%;
+}
+
+.agendaSemaineDay{
+    height: 100%;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 4% 96%;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.AgendaSemaineListeJours{
+    display: grid;
+    grid-template-columns: 5% repeat(7, 12.85%) 5%;
+}
+
+.AgendaSemaineListeJoursfleche{
+    font-size: 2vh;
+    padding : 1vh;
+    transition: all 0.3s;
+    height: 2vh;
+    border-radius: 20px;
+    color: black;
+    &:hover{
+        background: black;
+        color: white;
+    }
+}
+
+.agendaSemaineJour{
+    //background: red;
+}
+
+.agendaSemaineJourNom{
+    padding : 1.9vh;
+    margin: 0px;
+    overflow: hidden;
+    height: 2.2vh;
+}
+
+.agendaSemaineToday{
+    border-radius: 15px;
+    background-color: red;
+}
+

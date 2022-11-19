@@ -8,11 +8,10 @@ import { useState } from 'react';
 function App() {
   let [witchPage, setWitchPage] = useState('Agenda');
   let page = {
-    'Agenda':<ComposantReveil/>,
-    'Reveil':<ComposantAgenda/>,
+    'Reveil':<ComposantReveil/>,
+    'Agenda':<ComposantAgenda/>,
   };
 
-    console.log(witchPage);
   return (
     <div className="App">
       <ComposantLayout setWitchPage={setWitchPage}/>
