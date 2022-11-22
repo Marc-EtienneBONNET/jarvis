@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { checkWichBigDay } from '../../../../utile/function/heureDate'
 
@@ -14,8 +15,6 @@ function ComposantFromChangeEvent(arg){
         recurance:arg.event.recurance,
         argent:arg.event.argent,
     });
-
-
     function handleChangeNewEvent(e){
         
         let res = e.target.value;
@@ -56,24 +55,22 @@ function ComposantFromChangeEvent(arg){
         }
         else
         {
-            if (newEvent.id === -1)
-            {
-                console.log(newEvent);
-                console.log('Evenement enregistrer !');
-                arg.setChangeEvent(undefined);
-            }
-            else if (arg.event){
-                console.log('Modif effectuer !');
-                arg.setChangeEvent(undefined);
-            }
+            axios.post('http://localhost:3001/event/postAddNew', newEvent)
+            arg.setChangeEvent(undefined);
         }
+    }
+
+    function handleSupEvent(myEvent){
+        if (myEvent.id === -1)
+            return ;
+        axios.post('http://localhost:3001/event/getRemoveById', myEvent.id)
     }
 
     return (
     <div className={'formChangeEvent '}>
         <div className="formChangeEventBtnSup">
           <i onClick={() => {arg.setChangeEvent(undefined)}} className="fa-solid fa-xmark formChangeEventBtnQuit"></i>
-          <i onClick={() => {arg.setChangeEvent(undefined)}} className="fa-solid fa-trash-can formChangeEventBtnQuit"></i>
+          <i onClick={() => {handleSupEvent(arg.event); arg.setChangeEvent(undefined)}} className="fa-solid fa-trash-can formChangeEventBtnQuit"></i>
         </div>
         <form>
             <div className="types2">
@@ -97,11 +94,11 @@ function ComposantFromChangeEvent(arg){
             </div>
             <div className="types">
                 <h5>Debut : </h5>
-                <input onChange={(e) => {handleChangeNewEvent(e)}} type='datetime-local' className="formChangeEventChamp" name='debut' value={addZero(event.debut.getFullYear()) + '-'+ addZero(event.debut.getMonth()) + '-' + addZero(event.debut.getDate()) + 'T' + addZero(event.debut.getHours()) + ':' + addZero(event.debut.getMinutes())}/>
+                <input onChange={(e) => {handleChangeNewEvent(e)}} type='datetime-local' className="formChangeEventChamp" name='debut' value={addZero(event.debut.getFullYear()) + '-'+ addZero(event.debut.getMonth()+1) + '-' + addZero(event.debut.getDate()) + 'T' + addZero(event.debut.getHours()) + ':' + addZero(event.debut.getMinutes())}/>
             </div>
             <div className="types">
                 <h5>Fin : </h5>
-                <input onChange={(e) => {handleChangeNewEvent(e)}} type='datetime-local' className="formChangeEventChamp" name='fin' value={addZero(event.fin.getFullYear()) + '-'+ addZero(event.fin.getMonth()) + '-' + addZero(event.fin.getDate()) + 'T' + addZero(event.fin.getHours()) + ':' + addZero(event.fin.getMinutes())}/>
+                <input onChange={(e) => {handleChangeNewEvent(e)}} type='datetime-local' className="formChangeEventChamp" name='fin' value={addZero(event.fin.getFullYear()) + '-'+ addZero(event.fin.getMonth() + 1) + '-' + addZero(event.fin.getDate()) + 'T' + addZero(event.fin.getHours()) + ':' + addZero(event.fin.getMinutes())}/>
             </div>
             <div className="types">
                 <h5>Argent : </h5>
@@ -119,7 +116,7 @@ function ComposantFromChangeEvent(arg){
             </div>
             <input onChange={(e) => {handleChangeNewEvent(e)}} value={event.titre} type='text' name='titre' className="formChangeEventChamp formChangeEventChampTitre"/>
             <textarea onChange={(e) => {handleChangeNewEvent(e)}} value={event.detail} type='textarea'  name='detail' className="formChangeEventChamp formChangeEventChampDetail"/>
-            <input onClick={(e) => {handleClickNewEvent(e)}}  type='button' value={arg.event.id === -1 ? 'Modifiez': 'Envoyez'}className="formChangeEventChamp formChangeEventChampBtn"/>
+            <input onClick={(e) => {handleClickNewEvent(e)}}  type='button' value={arg.event.id === -1 ? 'Envoyez': 'Modifiez'}className="formChangeEventChamp formChangeEventChampBtn"/>
         </form>
     </div>
     );

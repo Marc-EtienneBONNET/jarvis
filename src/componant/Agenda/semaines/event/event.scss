@@ -4,10 +4,10 @@
     // width : 9.3vw;
     position: absolute;
     border-radius: 5px;
-    padding-left: 1vw;
-    padding-right: 1vw;
+    // padding-left: 0.5vw;
+    // padding-right: 0.5vw;
     min-height: 1.5vh;
-    word-wrap: break-word;
+    //word-wrap: break-word;
     overflow: hidden;
 }
 
@@ -16,7 +16,7 @@
     background: rgb(225,112,85, 30%);
     transition: all 0.3s;
     &:hover{
-        background: rgb(255,0,0, 90%);
+        background:rgb(225,112,85, 90%);
         opacity: 100%;
     }
 }
@@ -24,7 +24,7 @@
     background: rgb(9,132,227, 30%);
     transition: all 0.3s;
     &:hover{
-        background: rgb(255,0,0, 90%);
+        background: rgb(9,132,227, 90%);
         opacity: 100%;
 
     }
@@ -33,7 +33,7 @@
     background: rgb(214,48,49, 30%);
     transition: all 0.3s;
     &:hover{
-        background: rgb(255,0,0, 90%);
+        background: rgb(214,48,49, 90%);
         opacity: 100%;
 
     }
@@ -42,7 +42,7 @@
     background: rgb(0,206,201, 30%); 
     transition: all 0.3s;
     &:hover{
-        background: rgb(255,0,0, 90%);
+        background: rgb(0,206,201, 90%);
         opacity: 100%;
     }
 }
@@ -50,7 +50,7 @@
     background: rgb(253,203,110, 30%);
     transition: all 0.3s;
     &:hover{
-        background: rgb(255,0,0, 90%);
+        background: rgb(253,203,110, 90%);
         opacity: 100%;
 
     }
@@ -59,7 +59,7 @@
     background: rgb(0,184,148, 30%);
     transition: all 0.3s;
     &:hover{
-        background: rgb(255,0,0, 90%);
+        background: rgb(0,184,148, 90%);
         opacity: 100%;
     
     }
@@ -70,12 +70,10 @@
     opacity: 100%;
     margin: 0px;
     padding: 0px;
-    //font-size:2vh;
 }
 
 .divEventDetail{
     opacity: 100%;
     margin: 0px;
     padding: 0px;
-    //font-size:1.5vh;
 }

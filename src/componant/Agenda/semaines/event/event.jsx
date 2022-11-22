@@ -1,33 +1,29 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { MyEvent } from './../../../../utile/class/classEvent'
 import { checkSameDay, checkWichBigDay, checkGoodDay } from './../../../../utile/function/heureDate'
 
 
 
-function ComposantEvent(date, setChangeEvent){
-
-    function takeListeEvent(date){
-        return ([new MyEvent('Travail perso','RDV travail1', new Date(new Date(new Date().setHours(6)).setMinutes(0)), new Date(),'detail','toutes les semaines', 'Alarm', 10),
-        new MyEvent('Travail perso','RDV travail2', new Date(new Date().setHours(7)), new Date(),'detail2','toutes les semaines', 'Alarm', 10),
-        new MyEvent('Travail perso','RDV travail2', new Date(new Date().setHours(8)), new Date(),'detail2','toutes les semaines', 'Alarm', 10)]);
-    }
-    let listEvent = takeListeEvent(date);
-    function createListForDivEvent(listEvent){
-        let divEvent = listEvent.map(((element) => {
-            if (element.debut.getDate() <= date.getDate() && element.fin.getDate() >= date.getDate() && 
-            element.debut.getMonth() <= date.getMonth() && element.fin.getMonth() >= date.getMonth() && 
-            element.debut.getFullYear() <= date.getFullYear() && element.debut.getFullYear() <= date.getFullYear())
-                return (element);
-            else if ((element.recurance === 'toutes les semaines' && element.debut.getDay() === date.getDay()) || 
-                     (element.recurance === 'Tout les mois' && element.debut.getDate() === date.getDate()) || 
-                     (element.recurance === 'Tout les ans' && element.debut.getMonth() === date.getMonth() && element.debut.getDate() === date.getDate()))
-            {
-                return (element);
-            }
-        }))
+function ComposantEvent(date, setChangeEvent, listEvent){
+    function createListForDivEvent(){
+        let divEvent=[];
+        for (let i = 0;listEvent && listEvent[i]; i++)
+        {
+            let tmpdateDebut = new Date(listEvent[i].debut);
+            let tmpdateFin = new Date(listEvent[i].fin);
+            let dateDebut = new Date(tmpdateDebut.setHours(0));
+            let dateFin = new Date(new Date(tmpdateFin.setHours(23)).setMinutes(59));
+            if (date.getTime() >= dateDebut.getTime() && date.getTime() <= dateFin.getTime() )
+                divEvent.push(listEvent[i])
+            else if ((listEvent[i].recurance === 'toutes les semaines' && (listEvent[i].debut.getDay() <= date.getDay() &&listEvent[i].fin.getDay() >= date.getDay() )) || 
+                     (listEvent[i].recurance === 'Tout les mois' && (listEvent[i].debut.getDate() <= date.getDate() && listEvent[i].fin.getDate() >= date.getDate())) || 
+                     (listEvent[i].recurance === 'Tout les ans' && (listEvent[i].debut.getMonth() <= date.getMonth() && listEvent[i].fin.getMonth() >= date.getMonth()) && (listEvent[i].debut.getDate() <= date.getDate() && listEvent[i].fin.getDate() >= date.getDate())))
+                divEvent.push(listEvent[i])
+        }
         return (divEvent);
     }
-
+    
     function chooseStyle(event)
     {
         let res = '';
@@ -62,31 +58,29 @@ function ComposantEvent(date, setChangeEvent){
         let res = {
             marginTop: '0vh',
             height: '0vh',
-            width: 9.3/nb+'vw',
-            marginLeft: (9.3/nb * position) +'vw'
+            width: 11/nb+'vw',
+            // width: '0vw',
+            marginLeft: (11/nb * position) +'vw'
         };
         let minDebut = ((event.debut.getHours() - 6) * 60) + event.debut.getMinutes();
         let minFin = ((event.fin.getHours() - 6) * 60) + event.fin.getMinutes();
-        let during;
+        let during = 0;
         if (checkGoodDay(event.debut, event.recurance, date) === true)
         {
-
             marg = minDebut/60 * 4;
             if (marg >= 0)
                 res.marginTop =  marg + 'vh';
         }
         if (checkGoodDay(event.fin, event.recurance, date) === true )
         {
-            if (checkGoodDay(event.debut, event.recurance, date) === true && minDebut >= 0)
+            if (checkGoodDay(event.debut, event.recurance, date) === true)
             {
                 during = ((minFin - minDebut)/60) * 4;
+                
                 if (during < 1.5) 
                     res.height = '1.5vh';
                 else
-                {
-                    console.log(during)
                     res.height = during + 'vh';
-                }
             }
             else{
                 during = (minFin/60) *4;
@@ -95,7 +89,7 @@ function ComposantEvent(date, setChangeEvent){
         }
         else
         {
-            if (event(event.debut,event.recurance, date) === false)
+            if (checkGoodDay(event.debut, event.recurance, date) === false)
                 during = (1080 - 0)/60;
             else 
                 during = (1080 - minDebut)/60;
@@ -103,27 +97,40 @@ function ComposantEvent(date, setChangeEvent){
         }
         return (res);
     }
+
     function createDivEvent(listEvent){
-        let divEvent = listEvent.map((element) => {
-            if (element != undefined)
+
+        if (!listEvent || !listEvent[0])
+            return ;
+        let tmpEvent = [];
+        for (let i = 0; listEvent[i]; i++)
+        {
+            tmpEvent[i] = {
+                nb: 1,
+                pos: 0,
+                event:{},
+            };
+            for (let x = 0; listEvent[x]; x++)
             {
-                let nb = 0;
-                let position = 0;
-                for (let i = 0; listEvent[i]; i++)
+                if (listEvent[i].id !== listEvent[x].id) 
                 {
-                    if (((checkWichBigDay(element.debut, listEvent[i].debut) === 1 || checkWichBigDay(element.debut, listEvent[i].debut) === 0) && 
-                        (checkWichBigDay(element.debut, listEvent[i].fin) === 2 || checkWichBigDay(element.debut, listEvent[i].fin) === 0)) || 
-                        ((checkWichBigDay(element.fin, listEvent[i].debut) === 1 || checkWichBigDay(element.fin, listEvent[i].debut) === 0) && 
-                        (checkWichBigDay(element.fin, listEvent[i].fin) === 2 || checkWichBigDay(element.fin, listEvent[i].fin) === 0)))
+                    if((listEvent[i].debut.getTime() < listEvent[x].fin.getTime() && listEvent[i].fin.getTime() >= listEvent[x].debut.getTime()) || 
+                    (listEvent[x].debut.getTime() < listEvent[i].fin.getTime() && listEvent[x].fin.getTime() >= listEvent[i].debut.getTime()))
                     {
-                        if (element === listEvent[i])
-                            position = nb;
-                        nb += 1;
+                        if (x < i)
+                            tmpEvent[i].pos += 1; 
+                        tmpEvent[i].nb += 1;
                     }
                 }
-                return (<div onClick={() => {setChangeEvent(element)}} className={'divEvent ' + chooseStyle(element)} key={element.titre} style={calculeStyle(element, nb, position)}>
-                    <h4 className='divEventTitre'>{element.titre}</h4>
-                    <h5 className='divEventDetail'>{element.detail}</h5>
+                tmpEvent[i].event =  listEvent[i];
+            }
+        }
+        let divEvent = tmpEvent.map((element) => {
+            if (element != undefined)
+            {
+                return (<div onClick={() => {setChangeEvent(element.event)}} className={'divEvent ' + chooseStyle(element.event)} key={element.event.titre} style={calculeStyle(element.event, element.nb, element.pos)}>
+                    <h5 className='divEventTitre'>{element.event.titre}</h5>
+                    <h6 className='divEventDetail'>{element.event.detail}</h6>
                 </div>);
             }
         })

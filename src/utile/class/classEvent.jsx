@@ -1,4 +1,5 @@
 export class MyEvent{
+    id = 0;
     type = '';
     alarmType = '';
     titre = '';
@@ -7,7 +8,8 @@ export class MyEvent{
     fin = new Date();
     recurance = '';
     argent = 0;
-    constructor(type, titre, debut, fin , detail , recurance , alarmType, argent){
+    constructor(id, type, titre, debut, fin , detail , recurance , alarmType, argent){
+        this.id = id;
         this.type = type;
         this.titre = titre;
         this.detail = detail;

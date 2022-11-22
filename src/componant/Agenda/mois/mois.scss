@@ -1,0 +1,45 @@
+.AgendaMois{
+    height: 84vh;
+}
+
+.AgendaMoisMenu{
+    display: grid;
+    grid-template-columns: repeat(3, 28vw);
+    text-align: center;
+}
+.AgendaMoisTitreMois{
+    padding:0px;
+    border: 0px;
+    margin: 0px;
+}
+
+.colonnesDay{
+    display: grid;
+    grid-template-columns: repeat(7, 13.15vw);
+    text-align: center;
+}
+
+.AgendaMoiDay{
+    border: 0.1px solid #000000;
+    overflow: hidden;
+}
+
+.AgendaMoiDayDate{
+    height: 2vh;
+    width: 5vh;
+    padding: 0.2vh;
+    border-radius: 5px;
+    margin:0px;
+}
+
+.AgendaMoiDayEvent{
+    background: red;
+    border-radius: 2px;
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    margin-left: 0.5vw;
+}
+
+
