@@ -1,3 +1,5 @@
+import { dataRefrech } from "./dataFunction";
+
 export function parsDate(date){
     return ({
         jourMonth : date.getDate(),
@@ -14,7 +16,7 @@ export function checkGoodDay(date1,recurance, date2){
     date1.getMonth() === date2.getMonth() &&
     date1.getFullYear() === date2.getFullYear())
         return (true);
-    else if ((recurance === 'toutes les semaines' && date1.getDay() === date2.getDay()) || 
+    else if ((recurance === 'Toutes les semaines' && date1.getDay() === date2.getDay() && date2.getTime() >= date1.getTime()) || 
         (recurance === 'Tout les mois' && date1.getDate() === date2.getDate()) || 
         (recurance === 'Tout les ans' && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate()))
         return (true);
@@ -49,4 +51,25 @@ export function checkWichBigDay(date1, date2){
     }
     else 
         return (0);
+}
+
+export function arrondiDate(date, arround)
+{
+    let res = date.getTime();
+    let milliSeconde = date.getMilliseconds() - 1;
+    let seconde = date.getSeconds() * 1000;
+    let minute = date.getMinutes() * 60 * 1000;
+    let hours = date.getHours() * 60 * 60 * 1000;
+    let day = (date.getDate() - 1) * 24 * 60 * 60 * 1000;
+    if (arround >= 1)
+        res -=  milliSeconde;
+    if (arround >= 2)
+        res -=  seconde;    
+    if (arround >= 3)
+        res -=  minute;    
+    if (arround >=  4)
+        res -= hours;    
+    if (arround >= 5)
+        res -= day;    
+    return (res);
 }

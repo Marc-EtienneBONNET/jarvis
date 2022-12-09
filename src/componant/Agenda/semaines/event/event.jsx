@@ -16,7 +16,7 @@ function ComposantEvent(date, setChangeEvent, listEvent){
             let dateFin = new Date(new Date(tmpdateFin.setHours(23)).setMinutes(59));
             if (date.getTime() >= dateDebut.getTime() && date.getTime() <= dateFin.getTime() )
                 divEvent.push(listEvent[i])
-            else if ((listEvent[i].recurance === 'toutes les semaines' && (listEvent[i].debut.getDay() <= date.getDay() &&listEvent[i].fin.getDay() >= date.getDay() )) || 
+            else if ((listEvent[i].recurance === 'Toutes les semaines' && (listEvent[i].debut.getDay() <= date.getDay() &&listEvent[i].fin.getDay() >= date.getDay() )) || 
                      (listEvent[i].recurance === 'Tout les mois' && (listEvent[i].debut.getDate() <= date.getDate() && listEvent[i].fin.getDate() >= date.getDate())) || 
                      (listEvent[i].recurance === 'Tout les ans' && (listEvent[i].debut.getMonth() <= date.getMonth() && listEvent[i].fin.getMonth() >= date.getMonth()) && (listEvent[i].debut.getDate() <= date.getDate() && listEvent[i].fin.getDate() >= date.getDate())))
                 divEvent.push(listEvent[i])

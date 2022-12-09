@@ -1,0 +1,33 @@
+.ArgentDetailMothClefs{
+    display: grid;
+    padding: 1vh;
+    width : 45vw;
+    height: 10vh;
+    grid-template-columns: 15vw 15vw 15vw;
+    text-align: center;
+}
+
+.ArgentDetailMothClef{
+    border: 0px;
+    margin: 0px;
+    transition: all 0.3s;
+    border-radius: 5px;
+    //width:20vw;
+    border : 0.1px solid #c0392b;
+    &:hover{
+        background: #c0392b;
+    }
+}
+
+.ArgentDetailMothClefActife{
+    background: #c0392b;
+    border: 0px;
+    margin: 0px;
+    padding: 1vh;
+    border-radius: 5px;
+    transition: all 0.3s;
+    &:hover{
+        background: transparent;
+        border : 0.1px solid #c0392b;
+    }
+}

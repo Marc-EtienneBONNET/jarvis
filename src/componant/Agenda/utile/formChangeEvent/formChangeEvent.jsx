@@ -4,16 +4,31 @@ import { checkWichBigDay } from '../../../../utile/function/heureDate'
 
 function ComposantFromChangeEvent(arg){
 
+    let tmp = arg.event;
+    if (tmp === undefined)
+        tmp = {
+            id: -1,
+            type:'Travail perso',
+            alarmType:'Rien',
+            titre:arg.titre !== undefined ? arg.titre:'Titre',
+            detail:'Detail',
+            debut: new Date(arg.date),
+            fin: arg.titre !== undefined ? new Date(arg.date) : new Date(new Date(arg.date).setHours(new Date(arg.date).getHours() + 1)),
+            recurance:'Rien',
+            argent:0,
+            argentType:"Depence sup",
+         }
     let [event, setEvent] = useState({
-        id: arg.event.id,
-        type:arg.event.type,
-        alarmType:arg.event.alarmType,
-        titre:' '+arg.event.titre,
-        detail:' '+arg.event.detail,
-        debut:arg.event.debut,
-        fin: arg.event.fin,
-        recurance:arg.event.recurance,
-        argent:arg.event.argent,
+        id: tmp.id,
+        type:tmp.type,
+        alarmType:tmp.alarmType,
+        titre:' '+tmp.titre,
+        detail:' '+tmp.detail,
+        debut:tmp.debut,
+        fin: tmp.fin,
+        recurance:tmp.recurance,
+        argent:tmp.argent,
+        argentType:tmp.argentType,
     });
     function handleChangeNewEvent(e){
         
@@ -47,6 +62,7 @@ function ComposantFromChangeEvent(arg){
             fin: event.fin,
             recurance: event.recurance,
             argent: event.argent,
+            argentType: event.argentType,
         }
         if (checkWichBigDay(newEvent.debut, newEvent.fin) === 1)
         {
@@ -55,28 +71,37 @@ function ComposantFromChangeEvent(arg){
         }
         else
         {
-            axios.post('http://localhost:3001/event/postAddNew', newEvent)
-            arg.setChangeEvent(undefined);
+            axios.post('http://localhost:3001/event/postModif', newEvent)
+            if (arg.setChangeEvent)
+                arg.setChangeEvent(undefined);
+            if (arg.setDateForNewEvent)
+                arg.setDateForNewEvent(undefined);
         }
     }
 
     function handleSupEvent(myEvent){
         if (myEvent.id === -1)
             return ;
-        axios.post('http://localhost:3001/event/getRemoveById', myEvent.id)
+        axios.post('http://localhost:3001/event/getRemoveById', {id : myEvent})
     }
 
+    function handleQuitEvent(myEvent){
+        if (arg.setChangeEvent)
+            arg.setChangeEvent(undefined)
+        if (arg.setDateForNewEvent)
+            arg.setDateForNewEvent(undefined);
+    }
     return (
     <div className={'formChangeEvent '}>
         <div className="formChangeEventBtnSup">
-          <i onClick={() => {arg.setChangeEvent(undefined)}} className="fa-solid fa-xmark formChangeEventBtnQuit"></i>
-          <i onClick={() => {handleSupEvent(arg.event); arg.setChangeEvent(undefined)}} className="fa-solid fa-trash-can formChangeEventBtnQuit"></i>
+          <i onClick={() => {handleQuitEvent()}} className="fa-solid fa-xmark formChangeEventBtnQuit"></i>
+          {arg.event?<i onClick={() => {handleSupEvent(event.id); arg.setChangeEvent(undefined)}} className="fa-solid fa-trash-can formChangeEventBtnQuit"></i>:<></>}
         </div>
         <form>
             <div className="types2">
                 <h5>Type : </h5>
                 <select onChange={(e) => {handleChangeNewEvent(e)}} id="pet-select" className="formChangeEventChamp formChangeEventChooseType" name='type'>
-                    {arg.event.id === -1? <></> : <option value={arg.event.type}>{arg.event.type}</option>}
+                    {event.id === -1? <></> : <option value={event.type}>{event.type}</option>}
                     <option value="Travail pro">Travail pro</option>
                     <option value="Travail perso">Travail perso</option>
                     <option value="Rdv pro">Rdv pro</option>
@@ -85,7 +110,7 @@ function ComposantFromChangeEvent(arg){
                     <option value="Organisation">Organisation</option>
                 </select>
                 <select onChange={(e) => {handleChangeNewEvent(e)}} id="pet-select" className="formChangeEventChamp" name='alarmType'>
-                    {arg.event.id === -1? <></> : <option value={arg.event.alarmType}>{arg.event.alarmType}</option>}
+                    {event.id === -1? <></> : <option value={event.alarmType}>{event.alarmType}</option>}
                     <option value="Reveil">Reveil</option>
                     <option value="Alarm">Alarm</option>
                     <option value="Pop">Pop</option>
@@ -100,23 +125,32 @@ function ComposantFromChangeEvent(arg){
                 <h5>Fin : </h5>
                 <input onChange={(e) => {handleChangeNewEvent(e)}} type='datetime-local' className="formChangeEventChamp" name='fin' value={addZero(event.fin.getFullYear()) + '-'+ addZero(event.fin.getMonth() + 1) + '-' + addZero(event.fin.getDate()) + 'T' + addZero(event.fin.getHours()) + ':' + addZero(event.fin.getMinutes())}/>
             </div>
-            <div className="types">
+            <div className="types2">
                 <h5>Argent : </h5>
                 <input onChange={(e) => {handleChangeNewEvent(e)}} type='number' className="formChangeEventChamp" name='argent' value={event.argent === 0 ? "" : event.argent}/>
+                <select onChange={(e) => {handleChangeNewEvent(e)}} id="pet-select" className="formChangeEventChamp" name='argentType'>
+                        {event.id === -1? <></> : <option value={event.argentType}>{event.argentType}</option>}
+                        <option value="Depence sup">Depence sup</option>
+                        <option value="Charge courante">Charge courante</option>
+                        <option value="Charge mensuel">Charge mensuel</option>
+                        <option value="Salaire travail">Salaire travail</option>
+                        <option value="Salaire immo">Salaire immo</option>
+                        <option value="Argent sup">Argent sup</option>
+                </select>
             </div>
             <div className="types">
                 <h5>Recurance : </h5>
                 <select onChange={(e) => {handleChangeNewEvent(e)}} id="pet-select" className="formChangeEventChamp" name='recurance'>
-                    {arg.event.id === -1? <></> : <option value={arg.event.recurance}>{arg.event.recurance}</option>}
+                    {event.id === -1? <></> : <option value={event.recurance}>{event.recurance}</option>}
                     <option value="Jamais">Rien</option>
-                    <option value="toutes les semaines">Tout les semaine</option>
+                    <option value="Toutes les semaines">Tout les semaine</option>
                     <option value="Tout les mois">Tout les mois</option>
                     <option value="Tout les ans">Tout les ans</option>
                 </select>
             </div>
             <input onChange={(e) => {handleChangeNewEvent(e)}} value={event.titre} type='text' name='titre' className="formChangeEventChamp formChangeEventChampTitre"/>
             <textarea onChange={(e) => {handleChangeNewEvent(e)}} value={event.detail} type='textarea'  name='detail' className="formChangeEventChamp formChangeEventChampDetail"/>
-            <input onClick={(e) => {handleClickNewEvent(e)}}  type='button' value={arg.event.id === -1 ? 'Envoyez': 'Modifiez'}className="formChangeEventChamp formChangeEventChampBtn"/>
+            <input onClick={(e) => {handleClickNewEvent(e);}}  type='button' value={event.id === -1 ? 'Envoyez': 'Modifiez'}className="formChangeEventChamp formChangeEventChampBtn"/>
         </form>
     </div>
     );

@@ -1,40 +1,29 @@
 import { useState } from 'react';
 import { checkSameDay } from './../../../utile/function/heureDate'
 import axios from 'axios';
-import { event } from '../../../utile/class/classEvent'
-
-
+import ComposantFromChangeEvent from '../utile/formChangeEvent/formChangeEvent'
+import { dataRefrech } from './../../../utile/function/dataFunction' 
 
 function ComposantMois() {
 
     let [date, setDate] = useState(new Date());
+    let [dateForNewEvent, setDateForNewEvent] = useState(undefined);
+    let [changeEvent, setChangeEvent] = useState(undefined);
+    let [events, setEvents] = useState();
     let Month = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre']
-    let [listEvent, setlistEvent] = useState();
-
-    async function takeListeEvent(){
-        let tmp = (await axios.get('http://localhost:3001/event/getTakeAll')).data;
-        let res = tmp.map((element) => {
-            return ({
-                ...element,
-                debut: new Date(element.debut),
-                fin: new Date(element.fin),
-            });
-        })
-        setlistEvent(res);
-    }
 
     function createListForDivEvents(date){
         let divEvent=[];
-        for (let i = 0;listEvent && listEvent[i]; i++)
+        for (let i = 0;events && events[i]; i++)
         {
-            let dateDebut = new Date(listEvent[i].debut.setHours(0));
-            let dateFin = new Date(new Date(listEvent[i].fin.setHours(23)).setMinutes(59));
+            let dateDebut = new Date(new Date(events[i].debut).setHours(0));
+            let dateFin = new Date(new Date(new Date(events[i].fin).setHours(23)).setMinutes(59));
             if (date.getTime() >= dateDebut.getTime() && date.getTime() <= dateFin.getTime() )
-                divEvent.push(listEvent[i])
-            else if ((listEvent[i].recurance === 'toutes les semaines' && (listEvent[i].debut.getDay() <= date.getDay() &&listEvent[i].fin.getDay() >= date.getDay() )) || 
-                     (listEvent[i].recurance === 'Tout les mois' && (listEvent[i].debut.getDate() <= date.getDate() && listEvent[i].fin.getDate() >= date.getDate())) || 
-                     (listEvent[i].recurance === 'Tout les ans' && (listEvent[i].debut.getMonth() <= date.getMonth() && listEvent[i].fin.getMonth() >= date.getMonth()) && (listEvent[i].debut.getDate() <= date.getDate() && listEvent[i].fin.getDate() >= date.getDate())))
-                divEvent.push(listEvent[i])
+                divEvent.push(events[i])
+            else if ((events[i].recurance === 'Toutes les semaines' && (events[i].debut.getDay() <= date.getDay() &&events[i].fin.getDay() >= date.getDay() )) || 
+                     (events[i].recurance === 'Tout les mois' && (events[i].debut.getDate() <= date.getDate() && events[i].fin.getDate() >= date.getDate())) || 
+                     (events[i].recurance === 'Tout les ans' && (events[i].debut.getMonth() <= date.getMonth() && events[i].fin.getMonth() >= date.getMonth()) && (events[i].debut.getDate() <= date.getDate() && events[i].fin.getDate() >= date.getDate())))
+                divEvent.push(events[i])
         }
         return (divEvent);
     }
@@ -44,7 +33,7 @@ function ComposantMois() {
         let date = new Date(myDate.date.setDate(myDate.date.getDate() -1));
         let tabEvent = createListForDivEvents(date);
         let res = tabEvent.map((element) => {
-            return (<h5 key={element.id} className={'AgendaMoiDayEvent '+chooseStyleByTipe(element)}>{element.titre}</h5>);
+            return (<h5 onClick={() => {setChangeEvent(element)}} key={element.id} className={'AgendaMoiDayEvent '+chooseStyleByTipe(element)}>{element.titre}</h5>);
         });
         return (res);
     }
@@ -91,6 +80,7 @@ function ComposantMois() {
             style.case.opacity = '30%';
         return (style);
    }
+
    function CreateDivDay(date)
     {
         let dateDebut = new Date(date.date.setDate(1));
@@ -104,12 +94,12 @@ function ComposantMois() {
         while  (dateFin.getMonth() === date.date.getMonth() || dateFin.getDay() !== 1)
             dateFin = new Date(dateFin.setDate(dateFin.getDate() + 1));
         nbLigne = ((dateFin.getTime() - dateDebut.getTime())/86400000)/7;
-        console.log(nbLigne);
         for (let i; dateDebut.getTime() !== dateFin.getTime(); i++)
         {
             let style = CreateStyleDay(dateDebut)
+            let date = new Date(dateDebut)
             tabDay.push(
-                <div className='AgendaMoiDay' key={dateDebut.getTime()} style={{height:77/nbLigne+'vh', ...style.case}}>
+                <div onClick={() => {setDateForNewEvent(date)}} className='AgendaMoiDay' key={dateDebut.getTime()} style={{height:77/nbLigne+'vh', ...style.case}}>
                     <h5 className='AgendaMoiDayDate' style={style.date}>{dateDebut.getDate()}  {day[dateDebut.getDay()]}</h5>
                     <div>
                         <CreateDivEvents date={dateDebut}/>
@@ -127,7 +117,9 @@ function ComposantMois() {
     function handleMouveDate(witch){
         setDate(new Date(date.setMonth(date.getMonth() + witch)));
     }
-    setTimeout(takeListeEvent, 1000);
+    dataRefrech({events:{events:events, setEvents:setEvents}});
+    if (changeEvent && dateForNewEvent)
+        setDateForNewEvent(undefined);
     return (
         <div className='AgendaMois'>
             <div className='AgendaMoisMenu'>
@@ -139,6 +131,8 @@ function ComposantMois() {
             <div className='colonnesDay'>
                 <CreateDivDay date={date}/>
             </div>
+            {changeEvent !== undefined && !dateForNewEvent?<ComposantFromChangeEvent event={changeEvent} setChangeEvent={setChangeEvent}/>:<></>}
+            {dateForNewEvent !== undefined &&  !changeEvent?<ComposantFromChangeEvent date={dateForNewEvent} setDateForNewEvent={setDateForNewEvent}/>:<></>}
         </div>
     );
 }

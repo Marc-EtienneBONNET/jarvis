@@ -1,0 +1,103 @@
+.Argent{
+    height : 89vh;
+}
+
+.ArgentSolde{
+    width: 15%;
+    display: grid;
+    grid-template-columns: repeat(3,33%);
+    text-align: center;    
+
+}
+
+.ArgentSoldeBtnPlus{
+    margin-left: 20vw;
+    padding: 1vh;
+    font-size: 5vh;
+    text-align: center;
+    border-radius: 15vh;
+    color: #c0392b;
+    border: 0.1px solid #c0392b;
+    transition: all 0.3s;
+    &:hover{
+        background: #c0392b;
+        color: white;
+    }
+}
+
+.ArgentSoldeBlock{
+    padding: 0px;
+    margin:0px;
+    border:0px;
+}
+.ArgentSoldeBlockActuelString{
+    padding: 0px;
+    margin:0px;
+    border:0px;
+}
+
+.ArgentSoldeBlockActuelNumber{
+    padding: 0px;
+    margin:0px;
+    border:0px;
+}
+
+.ArgentSoldeBlockPrevisionnelString{
+    padding: 0px;
+    margin:0px;
+    border:0px;
+}
+.ArgentSoldeBlockPrevisionnelNumber{
+    padding: 0px;
+    margin:0px;
+    border:0px;
+}
+
+.ArgentMouvementsArgents{
+    height: 80vh;
+}
+
+
+
+.ArgentChoosMonth{
+    text-align: center;
+    width:100%;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+.ArgentDetail{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.ArgentDetailStatistiques{
+    padding: 3vh;
+}
+
+.ArgentDetailStatistiqueFin{
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%; 
+    text-align: center; 
+}
+.ArgentDetailStatistique{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    text-align: center;     
+}
+
+.ArgentDetailStatistiqueTitre{
+    border: 0.1px solid #000000;
+}
+
+.ArgentDetailStatistiqueRes{
+    border: 0.1px solid #000000;
+}
+
+.ArgentDetailStatistiqueState{
+    border: 0.1px solid #000000;
+}
+
+.test{
+    background: green;
+}
