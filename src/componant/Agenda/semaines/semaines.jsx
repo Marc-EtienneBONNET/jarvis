@@ -7,7 +7,7 @@ import ComposantFromChangeEvent from '../utile/formChangeEvent/formChangeEvent'
 import axios from 'axios';
 import { dataRefrech } from './../../../utile/function/dataFunction' 
 
-function ComposantSemaines() {
+function ComposantSemaines(data) {
 
     let [myDate, setMyDate] = useState(new Date());
     let [events, setEvents] = useState();
@@ -46,7 +46,7 @@ function ComposantSemaines() {
         let tmp = myDate.setDate(myDate.getDate() + day);
         setMyDate(new Date(tmp));
     }
-    dataRefrech({events:{events:events, setEvents:setEvents}});
+    dataRefrech({profile:{profile:data.profile}, events:{events:events, setEvents:setEvents}});
     
     return (
             <>
@@ -61,8 +61,8 @@ function ComposantSemaines() {
                 </div>
             </div>
         </div>
-        {changeEvent !== undefined && !dateForNewEvent?<ComposantFromChangeEvent event={changeEvent} setChangeEvent={setChangeEvent}/>:<></>}
-        {dateForNewEvent !== undefined &&  !changeEvent?<ComposantFromChangeEvent date={dateForNewEvent} setDateForNewEvent={setDateForNewEvent}/>:<></>}
+        {changeEvent !== undefined && !dateForNewEvent?<ComposantFromChangeEvent event={changeEvent} setChangeEvent={setChangeEvent} profile={data.profile}/>:<></>}
+        {dateForNewEvent !== undefined &&  !changeEvent?<ComposantFromChangeEvent date={dateForNewEvent} setDateForNewEvent={setDateForNewEvent} profile={data.profile}/>:<></>}
             </>
     );
 }

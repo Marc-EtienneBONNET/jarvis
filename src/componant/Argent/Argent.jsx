@@ -1,21 +1,18 @@
 import { useState } from "react";
-import axios from 'axios';
 import { dataRefrech } from '../../utile/function/dataFunction' 
 import { arrondiDate } from './../../utile/function/heureDate'
 import { mois } from './../../utile/variable/variable';
 import ComposantFromChangeEvent from './../../componant/Agenda/utile/formChangeEvent/formChangeEvent'
-import { checkGoodDay } from './../../utile/function/heureDate'
 import ComposantEventsArgents from './composantEventsArgent/ComposantEventsArgent'
 import ComposantStateArgents from './composantStateArgent/ComposantStateArgent'
 import ComposantMothClefArgent from './composantMothClefArgent/composantMothClefArgent'
+import axios from 'axios'
 
-function ComposantArgent() {
-    let [profiles, setProfiles] = useState([]);
+function ComposantArgent(data) {
     let [events, setEvents] = useState([]);
     let [date, setDate] = useState(new Date());
     let [dateForNewEvent, setDateForNewEvent] = useState(undefined);
     let [changeEvent, setChangeEvent] = useState(undefined);
-    // let [mothClef, setMothClef] = useState(['Depence sup','Charge courante', 'Charge mensuel', 'Salaire travail','Salaire immo', 'Argent sup']);
     let [mothClef, setMothClef] = useState({
         depenceSup:true,
         chargeCourante:true,
@@ -25,12 +22,15 @@ function ComposantArgent() {
         argentSup:true
     });
 
-
-
-    dataRefrech({profiles:{profiles:profiles, setProfile:setProfiles}, events:{events:events, setEvents:setEvents}});
+    dataRefrech({profile:{profile:data.profile}, events:{events:events, setEvents:setEvents}});
     if (changeEvent && dateForNewEvent)
         setDateForNewEvent(undefined);
-
+    if (arrondiDate(date,1) !== arrondiDate(new Date(),1))
+        setDate(new Date());
+    async function test() {
+        await axios.post('http://localhost:3001/profile/Connection',{password:'passe', mail:'webbonnet@gmail.com'});
+    }
+    test();
     return (
     <div className="Argent">
         <div className="ArgentSolde"> 
@@ -48,12 +48,12 @@ function ComposantArgent() {
             </div>
             <div>
                 {ComposantMothClefArgent(mothClef, setMothClef)}
-                {ComposantStateArgents(events, date, profiles)}
+                {ComposantStateArgents(events, date)}
                 <i onClick={() => {setDateForNewEvent(new Date())}} className="fa-solid fa-plus ArgentSoldeBtnPlus"></i>
             </div>
         </div>
-        {changeEvent !== undefined && !dateForNewEvent?<ComposantFromChangeEvent event={changeEvent} setChangeEvent={setChangeEvent}/>:<></>}
-        {dateForNewEvent !== undefined &&  !changeEvent?<ComposantFromChangeEvent titre='Dépance' date={dateForNewEvent} setDateForNewEvent={setDateForNewEvent}/>:<></>}
+        {changeEvent !== undefined && !dateForNewEvent?<ComposantFromChangeEvent event={changeEvent} setChangeEvent={setChangeEvent} profile={data.profile}/>:<></>}
+        {dateForNewEvent !== undefined &&  !changeEvent?<ComposantFromChangeEvent titre='Dépance' date={dateForNewEvent} setDateForNewEvent={setDateForNewEvent} profile={data.profile}/>:<></>}
     </div>
     );
 }

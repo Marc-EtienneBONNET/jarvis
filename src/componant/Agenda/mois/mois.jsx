@@ -4,7 +4,7 @@ import axios from 'axios';
 import ComposantFromChangeEvent from '../utile/formChangeEvent/formChangeEvent'
 import { dataRefrech } from './../../../utile/function/dataFunction' 
 
-function ComposantMois() {
+function ComposantMois(data) {
 
     let [date, setDate] = useState(new Date());
     let [dateForNewEvent, setDateForNewEvent] = useState(undefined);
@@ -117,7 +117,7 @@ function ComposantMois() {
     function handleMouveDate(witch){
         setDate(new Date(date.setMonth(date.getMonth() + witch)));
     }
-    dataRefrech({events:{events:events, setEvents:setEvents}});
+    dataRefrech({profile:{profile:data.profile}, events:{events:events, setEvents:setEvents}});
     if (changeEvent && dateForNewEvent)
         setDateForNewEvent(undefined);
     return (
@@ -131,8 +131,8 @@ function ComposantMois() {
             <div className='colonnesDay'>
                 <CreateDivDay date={date}/>
             </div>
-            {changeEvent !== undefined && !dateForNewEvent?<ComposantFromChangeEvent event={changeEvent} setChangeEvent={setChangeEvent}/>:<></>}
-            {dateForNewEvent !== undefined &&  !changeEvent?<ComposantFromChangeEvent date={dateForNewEvent} setDateForNewEvent={setDateForNewEvent}/>:<></>}
+            {changeEvent !== undefined && !dateForNewEvent?<ComposantFromChangeEvent event={changeEvent} setChangeEvent={setChangeEvent} profile={data.profile}/>:<></>}
+            {dateForNewEvent !== undefined &&  !changeEvent?<ComposantFromChangeEvent date={dateForNewEvent} setDateForNewEvent={setDateForNewEvent} profile={data.profile}/>:<></>}
         </div>
     );
 }

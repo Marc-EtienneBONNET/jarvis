@@ -3,12 +3,12 @@ import ComposantSemaines from './semaines/semaines'
 import ComposantMois from './mois/mois'
 import { useState } from 'react'
 
-function ComposantAgenda() {
+function ComposantAgenda(data) {
 
-        let [witchAgenda, setWitchAgenda] = useState('Mois')
+    let [witchAgenda, setWitchAgenda] = useState('Mois')
     let agenda = {
-        'Semaines': <ComposantSemaines/>,
-        'Mois':     <ComposantMois/>,
+        'Semaines': <ComposantSemaines profile={data.profile}/>,
+        'Mois':     <ComposantMois profile={data.profile}/>,
     }
     function handleAddEvent()
     {

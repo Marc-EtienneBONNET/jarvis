@@ -15,33 +15,50 @@ function ComposantFromChangeEvent(arg){
             debut: new Date(arg.date),
             fin: arg.titre !== undefined ? new Date(arg.date) : new Date(new Date(arg.date).setHours(new Date(arg.date).getHours() + 1)),
             recurance:'Rien',
-            argent:0,
-            argentType:"Depence sup",
+            argent:"0",
+            argentType:"Rien",
+            user:arg.profile.id,
          }
     let [event, setEvent] = useState({
         id: tmp.id,
         type:tmp.type,
         alarmType:tmp.alarmType,
-        titre:' '+tmp.titre,
-        detail:' '+tmp.detail,
+        titre:tmp.titre,
+        detail:tmp.detail,
         debut:tmp.debut,
         fin: tmp.fin,
         recurance:tmp.recurance,
         argent:tmp.argent,
         argentType:tmp.argentType,
+        user:tmp.user,
     });
     function handleChangeNewEvent(e){
         
         let res = e.target.value;
-        
-        if (!e || !e.target || !e.target.value || !e.target.name)
+        if (!e || !e.target || !e.target.name)
             return ;
+        if (e.target.name ==='argent' && e.target.value === "")
+            res = '0';
+        if (e.target.name ==='argent' && e.target.value[0] === '0' && e.target.value[1] !== '\0')
+            res = e.target.value[1];
+        for (let i = 0; e.target.name === 'argent' && e.target.value[i]; i++)
+        {
+            if (e.target.value[i] !== '-' && (e.target.value[i] < '0' || e.target.value[i] > '9'))
+                return ;
+        }
         if (e.target.name === 'debut' || e.target.name === 'fin' )
             res = new Date(res);
         let tmp = {
             ...event,
             [e.target.name]:res,
         };
+        if (tmp.argentType === 'Charge mensuel')
+        {
+            tmp = {
+                ...tmp,
+                recurance: 'Tout les mois',
+            };
+        }
         setEvent(tmp);
     }
 
@@ -63,6 +80,7 @@ function ComposantFromChangeEvent(arg){
             recurance: event.recurance,
             argent: event.argent,
             argentType: event.argentType,
+            user:event.user
         }
         if (checkWichBigDay(newEvent.debut, newEvent.fin) === 1)
         {
@@ -83,6 +101,7 @@ function ComposantFromChangeEvent(arg){
         if (myEvent.id === -1)
             return ;
         axios.post('http://localhost:3001/event/getRemoveById', {id : myEvent})
+        handleQuitEvent();
     }
 
     function handleQuitEvent(myEvent){
@@ -95,7 +114,7 @@ function ComposantFromChangeEvent(arg){
     <div className={'formChangeEvent '}>
         <div className="formChangeEventBtnSup">
           <i onClick={() => {handleQuitEvent()}} className="fa-solid fa-xmark formChangeEventBtnQuit"></i>
-          {arg.event?<i onClick={() => {handleSupEvent(event.id); arg.setChangeEvent(undefined)}} className="fa-solid fa-trash-can formChangeEventBtnQuit"></i>:<></>}
+          {arg.event?<i onClick={() => {handleSupEvent(event.id)}} className="fa-solid fa-trash-can formChangeEventBtnQuit"></i>:<></>}
         </div>
         <form>
             <div className="types2">
@@ -127,21 +146,24 @@ function ComposantFromChangeEvent(arg){
             </div>
             <div className="types2">
                 <h5>Argent : </h5>
-                <input onChange={(e) => {handleChangeNewEvent(e)}} type='number' className="formChangeEventChamp" name='argent' value={event.argent === 0 ? "" : event.argent}/>
+                <input onChange={(e) => {handleChangeNewEvent(e)}} type='text' className="formChangeEventChamp" name='argent' value={event.argent}/>
                 <select onChange={(e) => {handleChangeNewEvent(e)}} id="pet-select" className="formChangeEventChamp" name='argentType'>
                         {event.id === -1? <></> : <option value={event.argentType}>{event.argentType}</option>}
-                        <option value="Depence sup">Depence sup</option>
-                        <option value="Charge courante">Charge courante</option>
-                        <option value="Charge mensuel">Charge mensuel</option>
-                        <option value="Salaire travail">Salaire travail</option>
-                        <option value="Salaire immo">Salaire immo</option>
-                        <option value="Argent sup">Argent sup</option>
+                        {parseInt(event.argent,10) === 0 ?<option value="Rien">Rien1</option>:<></>}
+                        {parseInt(event.argent,10) < 0 ?<option value="Depence sup">Depence sup</option>:<></>}
+                        {parseInt(event.argent,10) < 0 ?<option value="Charge courante">Charge courante</option>:<></>}
+                        {parseInt(event.argent,10) < 0 ?<option value="Charge mensuel">Charge mensuel</option>:<></>}
+                        {parseInt(event.argent,10) > 0 ?<option value="Argent sup">Argent sup</option>:<></>}
+                        {parseInt(event.argent,10) > 0 ?<option value="Salaire travail">Salaire travail</option>:<></>}
+                        {parseInt(event.argent,10) > 0 ?<option value="Salaire immo">Salaire immo</option>:<></>}
+                        
                 </select>
             </div>
             <div className="types">
                 <h5>Recurance : </h5>
                 <select onChange={(e) => {handleChangeNewEvent(e)}} id="pet-select" className="formChangeEventChamp" name='recurance'>
                     {event.id === -1? <></> : <option value={event.recurance}>{event.recurance}</option>}
+                    <option value={event.recurance}>{event.recurance}</option>
                     <option value="Jamais">Rien</option>
                     <option value="Toutes les semaines">Tout les semaine</option>
                     <option value="Tout les mois">Tout les mois</option>

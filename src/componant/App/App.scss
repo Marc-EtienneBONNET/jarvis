@@ -1,41 +1,41 @@
-.App{
+.appFormConnection{
     background: var(--primary_1);
     width : 100vw;
     height: 100vh;
+}
+
+.appFormConnectionListeChamps{
     display: grid;
-    grid-template-columns: 5vw 94vw;
-    word-wrap: break-word;
-}
-
-.page{
-    background: white;
-    height: 90vh;
-    margin-top: 5vh;
-    border-radius: 10px;
-    box-shadow: var(--box-shadow-nav);
-    padding-left: 1vw;
-    padding-right: 1vw;
-    padding-top : 1vh;
-    padding-bottom : 1vh;
-}
-
-
-.myLayout{
-    display: grid;
-    grid-template: 5vw;
-    height: 80vh;
-    margin-top: 10vh;   
-}
-
-.btnMenu
-{
+    grid-template-columns: 30vw;
+    margin-left: 35vw;
     text-align: center;
-    background: transparent;
-    border: 0px solid transparent;
-    color:black;
-    transition: background-color 0.3s, color 0.3s;
-    font-size: 4vh;
-    &:hover{
-        color: white;
-    }
+    color: white;
+}
+
+.appFormConnectionMail{
+    margin: 1vh;
+    height: 3vh;
+    padding: 1vh;
+    border-radius: 10px;
+    border: 0px solid;
+    box-shadow: var(--box-shadow-nav);
+}
+
+.appFormConnectionPassword{
+    margin: 1vh;
+    height: 3vh;
+    padding: 1vh;
+    border-radius: 10px;
+    border: 0px solid;
+    box-shadow: var(--box-shadow-nav);
+
+}
+
+.appFormConnectionBtn{
+    margin: 1vh;
+    height: 5vh;
+    padding: 1vh;
+    border-radius: 10px;
+    border: 0px solid;
+    box-shadow: var(--box-shadow-nav);
 }

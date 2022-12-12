@@ -1,7 +1,7 @@
 import { arrondiDate } from './../../../utile/function/heureDate'
 import { checkGoodDay } from '../../../utile/function/heureDate'
 
-function ComposantStateArgents(events, date, myProfile){
+function ComposantStateArgents(events, date){
     let state = {
         argent:0,
         argentPrevisionnel:0,
@@ -26,7 +26,7 @@ function ComposantStateArgents(events, date, myProfile){
             let dateDay = new Date(dateTmpDeb);
             for (let i = 0; events[i]; i++)
             {
-                if (events[i].argent !== 0 && checkGoodDay(events[i].debut, events[i].recurance, dateDay) === true){
+                if (events[i].argent !== '0' && checkGoodDay(events[i].debut, events[i].recurance, dateDay) === true){
                     if ((events[i].recurance === 'Toutes les semaines' && events[i].debut.getDay() === dateDay.getDay()) || 
                         (events[i].recurance === 'Tout les mois' && events[i].debut.getDate() === dateDay.getDate()) || 
                         (events[i].recurance === 'Tout les ans' && events[i].debut.getMonth() === dateDay.getMonth() && events[i].debut.getDate() === dateDay.getDate()))
@@ -73,21 +73,17 @@ function ComposantStateArgents(events, date, myProfile){
                 }
             }
         })
-        console.log(dateJours);
-        console.log(new Date(dateFin));
-        console.log(tabEventsTmp);
         tabEventsTmp.map((element) => {
                 if (element.debut.getTime() <= dateJours.getTime())
                 {
-                    state.argent += element.argent;
+                    state.argent += parseInt(element.argent, 10);
                 }
             })
             state.argentPrevisionnel = state.argent;
             tabEventsTmp.map((element) => {
-                console.log(element);
             if (element.debut.getTime() <= dateFin && element.debut.getTime() > dateJours.getTime())
             {
-                state.argentPrevisionnel += element.argent;
+                state.argentPrevisionnel += parseInt(element.argent, 10);
             }
     })
     }
@@ -97,21 +93,21 @@ function ComposantStateArgents(events, date, myProfile){
             if (element.debut.getTime() <= arrondiDate(new Date(new Date(date).setMonth(date.getMonth() + 1)), 5) && element.debut.getTime() >= arrondiDate(new Date(new Date(date)), 5))
             {
                 if (element.argentType === 'Charge mensuel')
-                    state.chargeMensuel += element.argent;
+                    state.chargeMensuel += parseInt(element.argent,10);
                 if (element.argentType === 'Depence sup')
-                    state.depenceSup += element.argent;
+                    state.depenceSup += parseInt(element.argent,10);
                 if (element.argentType === 'Charge courante')
-                    state.chargeCourante += element.argent;
+                    state.chargeCourante += parseInt(element.argent,10);
                 if (element.argentType === 'Salaire travail')
-                    state.salaireTravail += element.argent;
+                    state.salaireTravail += parseInt(element.argent,10);
                 if (element.argentType === 'Salaire immo')
-                    state.salaireImmo += element.argent;
+                    state.salaireImmo += parseInt(element.argent,10);
                 if (element.argentType === 'Argent sup')
-                    state.argentSup += element.argent;
+                    state.argentSup += parseInt(element.argent,10);
                 if (element.argent < 0)
-                    state.depenceMensuelTotale += element.argent;
+                    state.depenceMensuelTotale += parseInt(element.argent,10);
                 if (element.argent > 0)
-                    state.revenuMensuelTotale += element.argent;
+                    state.revenuMensuelTotale += parseInt(element.argent,10);
             }
         })
     }
