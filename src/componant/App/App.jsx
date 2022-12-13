@@ -5,6 +5,18 @@ import ConnectApp from '../connectApp/connectApp';
 import axios from 'axios';
 import { takeAllProfile, takeOneProfile, supProfile, addNewProfile, mouvProfile, CheckPassword  } from './../../utile/function/dataProfile'
 
+/*
+select * table profile;
+select * table formations;
+select * table competances;
+select * table portfolio;
+drop table profile;
+drop table formations;
+drop table competances;
+drop tableportfolio;
+*/
+
+
 function App() {
 
   let [profile, setProfile] = useState();
