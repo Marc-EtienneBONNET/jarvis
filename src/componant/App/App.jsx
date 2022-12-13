@@ -16,11 +16,10 @@ function App() {
   async function connection()
   {
     let tmp = await CheckPassword(idPass.mail, idPass.password);
-    console.log(tmp);
-    // if (tmp)
-    //   setProfile(tmp);
-    // else 
-    //   alert('Le mail ou le moth de passe est incorrecte !')
+    if (tmp)
+       setProfile(tmp);
+    else 
+       alert('Le mail ou le moth de passe est incorrecte !')
   }
 
   function handleChangeIdPass(e){
@@ -30,7 +29,6 @@ function App() {
     }
     setidPass(tmp);
   }
-
   return (
     <div className="appFormConnection">
      {profile?<ConnectApp profile={profile}/>:<></>}
