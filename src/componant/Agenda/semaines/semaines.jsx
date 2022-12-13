@@ -5,7 +5,7 @@ import ComposantEvent from './event/event'
 import ComposantIndicateurHoraireLeft from './indicateurHoraireLeft/indicateurHoraireLeft'
 import ComposantFromChangeEvent from '../utile/formChangeEvent/formChangeEvent'
 import axios from 'axios';
-import { dataRefrech } from './../../../utile/function/dataFunction' 
+import { dataRefrech } from './../../../utile/function/dataUpdateEvents' 
 
 function ComposantSemaines(data) {
 

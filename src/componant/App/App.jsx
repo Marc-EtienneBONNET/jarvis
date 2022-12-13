@@ -1,12 +1,9 @@
 import './App.scss';
 import './../../2) styles/index.scss'
-import ComposantLayout from './../Layout/Layout.jsx'
-import ComposantReveil from '../Reveil/Reveil';
-import ComposantAgenda from '../Agenda/Agenda'; 
-import ComposantArgent from '../Argent/Argent'; 
 import { useState } from 'react';
 import ConnectApp from '../connectApp/connectApp';
 import axios from 'axios';
+import { takeAllProfile, takeOneProfile, supProfile, addNewProfile, mouvProfile, CheckPassword  } from './../../utile/function/dataProfile'
 
 function App() {
 
@@ -18,11 +15,12 @@ function App() {
 
   async function connection()
   {
-    let tmp = (await axios.post('http://localhost:3001/profile/Connection',{password:idPass.password, mail:idPass.mail})).data;
-    if (tmp)
-      setProfile(tmp);
-    else 
-      alert('Le mail ou le moth de passe est incorrecte !')
+    let tmp = await CheckPassword(idPass.mail, idPass.password);
+    console.log(tmp);
+    // if (tmp)
+    //   setProfile(tmp);
+    // else 
+    //   alert('Le mail ou le moth de passe est incorrecte !')
   }
 
   function handleChangeIdPass(e){
@@ -32,10 +30,7 @@ function App() {
     }
     setidPass(tmp);
   }
-  async function test(){
-    console.log('ici : ', await axios.post('http://localhost:3001/theProfile/supProfile', {res:2}));
-  }
-  test();
+
   return (
     <div className="appFormConnection">
      {profile?<ConnectApp profile={profile}/>:<></>}

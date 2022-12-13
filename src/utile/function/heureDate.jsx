@@ -1,5 +1,3 @@
-import { dataRefrech } from "./dataFunction";
-
 export function parsDate(date){
     return ({
         jourMonth : date.getDate(),
