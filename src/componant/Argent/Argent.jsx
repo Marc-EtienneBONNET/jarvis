@@ -27,10 +27,6 @@ function ComposantArgent(data) {
         setDateForNewEvent(undefined);
     if (arrondiDate(date,1) !== arrondiDate(new Date(),1))
         setDate(new Date());
-    async function test() {
-        await axios.post('http://localhost:3001/profile/Connection',{password:'passe', mail:'webbonnet@gmail.com'});
-    }
-    test();
     return (
     <div className="Argent">
         <div className="ArgentSolde"> 
