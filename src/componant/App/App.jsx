@@ -32,7 +32,10 @@ function App() {
     }
     setidPass(tmp);
   }
-
+  async function test(){
+    console.log('ici : ', await axios.post('http://localhost:3001/theProfile/supProfile', {res:2}));
+  }
+  test();
   return (
     <div className="appFormConnection">
      {profile?<ConnectApp profile={profile}/>:<></>}
