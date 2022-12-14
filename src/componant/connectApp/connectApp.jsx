@@ -1,14 +1,16 @@
 import './../../2) styles/index.scss'
 import ComposantLayout from '../Layout/Layout.jsx'
-import ComposantReveil from '../Reveil/Reveil';
-import ComposantAgenda from '../Agenda/Agenda'; 
-import ComposantArgent from '../Argent/Argent'; 
+import ComposantReveil from '../afterConnection/Reveil/Reveil';
+import ComposantAgenda from '../afterConnection/Agenda/Agenda'; 
+import ComposantArgent from '../afterConnection/Argent/Argent'; 
+import ComposantProfile from '../afterConnection/Profile/Profile'; 
 import { useState } from 'react';
 import axios from 'axios';
 
 function ConnectApp(data) {
-  let [witchPage, setWitchPage] = useState('Argent');
+  let [witchPage, setWitchPage] = useState('Profile');
   let page = {
+    'Profile':<ComposantProfile profile={data.profile}/>,
     'Reveil':<ComposantReveil profile={data.profile}/>,
     'Agenda':<ComposantAgenda profile={data.profile}/>,
     'Argent':<ComposantArgent profile={data.profile}/>,

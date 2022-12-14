@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { MyEvent } from './../../../../utile/class/classEvent'
-import { checkSameDay, checkWichBigDay, checkGoodDay } from './../../../../utile/function/heureDate'
+import { MyEvent } from './../../../../../utile/class/classEvent'
+import { checkSameDay, checkWichBigDay, checkGoodDay } from './../../../../../utile/function/heureDate'
 
 
 

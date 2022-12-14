@@ -1,0 +1,58 @@
+.Profile{
+    width : 100%;
+    height: 100%;
+}
+
+.ProfileForm{
+    display: grid;
+    grid-template-columns: 30vw;   
+}
+
+.ProfileFormInput{
+    padding: 1vh;
+    margin: 1vh;
+    border: 1px solid var(--primary_4);
+    border-radius: 10px;
+}
+
+.ProfileFormInputBtn{
+    transition: all 0.3s;
+    &:hover{
+        background: var(--primary_4);
+        color : #fff;
+    }
+}
+
+.ProfileFormInputNom{
+
+}
+.ProfileFormInputPrenomProfile{
+
+}
+.FormInputDateNaissance{
+
+}
+.ProfileFormInputAdress{
+
+}
+.ProfileFormInputMail{
+
+}
+.ProfileFormInputTel{
+
+}
+.ProfileFormInputLinkedin{
+
+}
+.ProfileFormInputGithub{
+
+}
+.ProfileFormInputCoddingGame{
+
+}
+.ProfileFormInputStatu{
+
+}
+.ProfileFormInputSolde{
+
+}

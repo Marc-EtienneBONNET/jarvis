@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { checkSameDay } from './../../../utile/function/heureDate'
+import { checkSameDay } from './../../../../utile/function/heureDate'
 import axios from 'axios';
-import ComposantFromChangeEvent from '../utile/formChangeEvent/formChangeEvent'
-import { dataRefrech } from './../../../utile/function/dataUpdateEvents' 
+import ComposantFromChangeEvent from '../../ComposantGestionEvent/formChangeEvent'
+import { dataRefrech } from './../../../../utile/function/dataUpdateEvents' 
 
 function ComposantMois(data) {
 

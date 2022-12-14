@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { parsDate } from './../../../utile/function/heureDate'
+import { parsDate } from './../../../../utile/function/heureDate'
 import ComposantIndicateurHoraire from './pointeurHoraire/pointeurHoraire'
 import ComposantEvent from './event/event'
 import ComposantIndicateurHoraireLeft from './indicateurHoraireLeft/indicateurHoraireLeft'
-import ComposantFromChangeEvent from '../utile/formChangeEvent/formChangeEvent'
+import ComposantFromChangeEvent from '../../ComposantGestionEvent/formChangeEvent'
 import axios from 'axios';
-import { dataRefrech } from './../../../utile/function/dataUpdateEvents' 
+import { dataRefrech } from './../../../../utile/function/dataUpdateEvents' 
 
 function ComposantSemaines(data) {
 

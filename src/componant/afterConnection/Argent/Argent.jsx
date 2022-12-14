@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { dataRefrech } from '../../utile/function/dataUpdateEvents' 
-import { arrondiDate } from './../../utile/function/heureDate'
-import { mois } from './../../utile/variable/variable';
-import ComposantFromChangeEvent from './../../componant/Agenda/utile/formChangeEvent/formChangeEvent'
+import { dataRefrech } from '../../../utile/function/dataUpdateEvents' 
+import { arrondiDate } from './../../../utile/function/heureDate'
+import { mois } from './../../../utile/variable/variable';
+import ComposantFromChangeEvent from '../ComposantGestionEvent/formChangeEvent'
 import ComposantEventsArgents from './composantEventsArgent/ComposantEventsArgent'
 import ComposantStateArgents from './composantStateArgent/ComposantStateArgent'
 import ComposantMothClefArgent from './composantMothClefArgent/composantMothClefArgent'

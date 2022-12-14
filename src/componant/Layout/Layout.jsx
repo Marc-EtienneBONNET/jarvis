@@ -10,7 +10,7 @@ function ComposantLayout(arg) {
           <i onClick={() => {arg.setWitchPage('Agenda')}} className="fa-solid fa-xmark btnMenu"></i>
           <i onClick={() => {arg.setWitchPage('Agenda')}} className="fa-solid fa-xmark btnMenu"></i>
           <i onClick={() => {arg.setWitchPage('Agenda')}} className="fa-solid fa-xmark btnMenu"></i>
-          <i onClick={() => {arg.setWitchPage('Agenda')}} className="fa-solid fa-xmark btnMenu"></i>
+          <i onClick={() => {arg.setWitchPage('Profile')}} className="fa-solid fa-user btnMenu"></i>
       </div>
   );
 }

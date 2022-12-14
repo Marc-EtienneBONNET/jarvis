@@ -8,18 +8,19 @@
 @use './../componant/App/App.scss';
 @use './../componant/connectApp/connectApp.scss';
 @use './../componant/Layout/Layout.scss';
-@use './../componant/Reveil/Reveil.scss';
-@use './../componant/Agenda/Agenda.scss';
-@use './../componant/Argent/Argent.scss';
-@use './../componant/Agenda/mois/mois.scss';
-@use './../componant/Agenda/semaines/semaines.scss';
-@use './../componant/Agenda/semaines/pointeurHoraire/pointeurHoraire.scss';
-@use './../componant/Agenda/semaines/event/event.scss';
-@use './../componant/Agenda/semaines/indicateurHoraireLeft/indicateurHoraireLeft.scss';
-@use './../componant/Agenda/utile/formChangeEvent/formChangeEvent.scss';
-@use './../componant/Argent/composantEventsArgent/ComposantEventsArgent.scss';
-@use './../componant/Argent/composantStateArgent/ComposantStateArgent.scss';
-@use './../componant/Argent/composantMothClefArgent/composantMothClefArgent.scss';
+@use './../componant/afterConnection/Reveil/Reveil.scss';
+@use './../componant/afterConnection/Agenda/Agenda.scss';
+@use './../componant/afterConnection/Argent/Argent.scss';
+@use './../componant/afterConnection/Agenda/mois/mois.scss';
+@use './../componant/afterConnection/Agenda/semaines/semaines.scss';
+@use './../componant/afterConnection/Agenda/semaines/pointeurHoraire/pointeurHoraire.scss';
+@use './../componant/afterConnection/Agenda/semaines/event/event.scss';
+@use './../componant/afterConnection/Agenda/semaines/indicateurHoraireLeft/indicateurHoraireLeft.scss';
+@use './../componant/afterConnection/ComposantGestionEvent/formChangeEvent.scss';
+@use './../componant/afterConnection/Argent/composantEventsArgent/ComposantEventsArgent.scss';
+@use './../componant/afterConnection/Argent/composantStateArgent/ComposantStateArgent.scss';
+@use './../componant/afterConnection/Argent/composantMothClefArgent/composantMothClefArgent.scss';
+@use './../componant/afterConnection/Profile/Profile.scss';
 
 
 

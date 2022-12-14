@@ -1,5 +1,18 @@
 import axios from 'axios';
+/*
+	
 
+select * from profile;
+select * from formations;
+select * from competances;
+select * from portfolio;
+select * from my_event;
+drop table profile;
+drop table formations;
+drop table competances;
+drop table portfolio;
+drop table my_event;
+*/
 export async function takeAllProfile(){
     let retour = (await axios.get('http://localhost:3001/theProfile/supProfile')).data;
     return (retour);
@@ -25,6 +38,15 @@ export async function addNewProfile(profile){
     }
     catch(e){
         console.log('Error: l\'ajoue du profile a echouer');
+    }
+}
+
+export async function mouvProfileAll(res, profile){
+    try{
+        await axios.post('http://localhost:3001/theProfile/mouvProfileAll', {res:res, profile:profile});
+    }
+    catch(e){
+        console.log('Error: la modification du profile a echouer');
     }
 }
 

@@ -1,5 +1,4 @@
-import { arrondiDate } from '../../../utile/function/heureDate'
-import { checkGoodDay } from '../../../utile/function/heureDate'
+import { arrondiDate, checkGoodDay } from '../../../../utile/function/heureDate'
 
 
 function ComposantEventsArgents(events, setChangeEvent, date, mothClef){
