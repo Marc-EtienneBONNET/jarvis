@@ -22,7 +22,7 @@ function ComposantProfile(data) {
 
     function createOptionFormation()
     {
-        let thisFormation = data.profile.formations;
+        let thisFormation = profileTmp.formations;
         if (!thisFormation)
             return;
         let i = 0;

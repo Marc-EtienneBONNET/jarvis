@@ -10,7 +10,7 @@ function ComposantFormationForm(formation, setFormation, profileTmp, setProfileT
        }
        setFormation(tmp);
     }
-    function handleClickFormation(e){
+    async function handleClickFormation(e){
         let tmp = {
          ...profileTmp,
         }
@@ -28,6 +28,12 @@ function ComposantFormationForm(formation, setFormation, profileTmp, setProfileT
         }
         setProfileTmp(tmp);
         mouvProfileAll(profileTmp.id,profileTmp)
+        let profTmp = await takeOneProfile('id',tmp.id);
+        setTimeout(() => {}, 100)
+        if (profTmp)
+        {
+            setProfileTmp(profTmp);
+        }
      }
     return (
         <form className="ProfileForm">
