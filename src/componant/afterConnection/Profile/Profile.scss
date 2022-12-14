@@ -1,14 +1,19 @@
 .Profile{
     width : 100%;
     height: 100%;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;   
 }
 
 .ProfileForm{
+    width: 20vw;
     display: grid;
-    grid-template-columns: 30vw;   
+    grid-template-columns: 25%;   
 }
 
 .ProfileFormInput{
+    font-size: 15px;
+    width: 20vw;
     padding: 1vh;
     margin: 1vh;
     border: 1px solid var(--primary_4);

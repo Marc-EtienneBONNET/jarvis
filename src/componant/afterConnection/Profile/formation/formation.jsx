@@ -2,30 +2,47 @@ import { useState } from "react";
 import { takeAllProfile, takeOneProfile, supProfile, addNewProfile, mouvProfile, mouvProfileAll, CheckPassword  } from '../../../../utile/function/dataProfile'
 
 
-function ComposantProfile(data) {
-    let [profileTmp, setProfileTmp] = useState(data.profile)
-
-    function createOptionFormation()
-    {
-        let formation = profileTmp.formation;
-        let res = formation.map((element) => {
-            
-        })
+function ComposantFormationForm(formation, setFormation, profileTmp, setProfileTmp) {
+    function handleChangeProfile(e){
+       let tmp = {
+        ...formation,
+        [e.target.name]:e.target.value,
+       }
+       setFormation(tmp);
     }
-
+    function handleClickFormation(e){
+        let tmp = {
+         ...profileTmp,
+        }
+        if (formation.id === -1)
+        {
+            tmp.formations.push(formation);
+        }
+        else
+        {
+            for (let i = 0;tmp.formations[i]; i++)
+            {
+                if (tmp.formations[i].id === formation.id)
+                    tmp.formations[i] = formation
+            }
+        }
+        setProfileTmp(tmp);
+        mouvProfileAll(profileTmp.id,profileTmp)
+     }
     return (
-        <select onChange={(e) => {}} id="pet-select" className="" name='formation'>
-            <option value="Travail pro">Travail pro</option>
-            <option value="Travail perso">Travail perso</option>
-            <option value="Rdv pro">Rdv pro</option>
-            <option value="Rdv perso">Rdv perso</option>
-            <option value="Evenement expetionnel">Evenement expetionnel</option>
-            <option value="Organisation">Organisation</option>
-        </select>
+        <form className="ProfileForm">
+    <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputNom" name='name' value={formation.name} placeholder="Uzumaki..."/>
+    <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputPrenom" name='photo' value={formation.photo} placeholder="Naruto..."/>
+    <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputDateNaissance" name='niveau' value={formation.niveau} placeholder="24/04/1998..."/>
+    <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputAdress" name='debut' value={formation.debut} placeholder="47 route des oiseau champtant"/>
+    <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputMail" name='fin' value={formation.fin} placeholder="Uzumaki@gmail..."/>
+    <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputTel" name='text' value={formation.text} placeholder="061741..."/>
+    <input onClick={(e) => {handleClickFormation(e)}}  type='button' value={formation.id === -1?'Ajoutez':'Modifier'} className="ProfileFormInput ProfileFormInputBtn"/>
+    </form>
     );
 }
 
-export default ComposantProfile;
+export default ComposantFormationForm;
 
 /* <form>
             <div className="types2">

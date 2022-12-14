@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { takeAllProfile, takeOneProfile, supProfile, addNewProfile, mouvProfile, mouvProfileAll, CheckPassword  } from './../../../utile/function/dataProfile'
+import ComposantFormationForm from './formation/formation'
 
 
 function ComposantProfile(data) {
     let [profileTmp, setProfileTmp] = useState(data.profile)
+    let [formation, setFormation] = useState({id:-1,name:'',photo:'',niveau:'',debut:'',fin:'',text:'',idProfile:profileTmp.id});
 
     function handleChangeProfile(e){
         let tmp = {
@@ -12,10 +14,25 @@ function ComposantProfile(data) {
         }
         setProfileTmp(tmp);
     }
+
     function handleClick(e){
         mouvProfileAll(profileTmp.id,profileTmp)
+        alert('La data a bien etait enregistrer !')
     }
 
+    function createOptionFormation()
+    {
+        let thisFormation = data.profile.formations;
+        if (!thisFormation)
+            return;
+        let i = 0;
+        let res = thisFormation.map((element) => {
+            let tmp =<option key={element.id} value={i}>{element.name}</option> 
+            i++;
+            return tmp;
+        })
+        return (res);
+    }
     return (
     <div className="Profile">
         <form className="ProfileForm">
@@ -29,9 +46,23 @@ function ComposantProfile(data) {
             <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputGithub" name='github' value={profileTmp.github} placeholder="Lien github"/>
             <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputCoddingGame" name='codingGame' value={profileTmp.codingGame} placeholder="Lien codingGame"/>
             <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputSolde" name='solde' value={profileTmp.solde} placeholder="100..."/>
-
             <input onClick={(e) => {handleClick(e);}}  type='button' value="Modifier" className="ProfileFormInput ProfileFormInputBtn"/>
         </form>
+        <div>
+            <select onChange={(e) => {e.target.value != -1 ? setFormation(profileTmp.formations[e.target.value]):setFormation({id:-1,name:'',photo:'',niveau:'',debut:'',fin:'',text:'',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='formation'>
+                <option value={-1}>Add formations</option>
+                {createOptionFormation()}
+            </select>
+            {ComposantFormationForm(formation, setFormation, profileTmp, setProfileTmp)}
+        </div>
+        <div>
+            {/* {ComposantFormationForm(data.profile, setFormation)}
+            {formation?formation:'coucou'} */}
+        </div>
+        <div>
+            {/* {ComposantFormationForm(data.profile, setFormation)}
+            {formation?formation:'coucou'} */}
+        </div>
     </div>
     );
 }
