@@ -6,9 +6,8 @@
 }
 
 .ProfileForm{
-    width: 20vw;
-    display: grid;
-    grid-template-columns: 25%;   
+   // background-color: red;
+    //width: 20vw;
 }
 
 .ProfileFormInput{
@@ -26,6 +25,14 @@
         background: var(--primary_4);
         color : #fff;
     }
+}
+
+.ProfileFormImgProfile{
+    height:10vh;
+    border-radius: 40px;
+    margin: 1vh;
+    margin-left: 5vw;
+    box-shadow: var(--box-shadow-nav);
 }
 
 .ProfileFormInputNom{

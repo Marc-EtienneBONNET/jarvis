@@ -1,7 +1,5 @@
 import axios from 'axios';
 /*
-	
-
 select * from profile;
 select * from formations;
 select * from competances;
