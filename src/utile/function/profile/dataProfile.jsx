@@ -26,7 +26,6 @@ export async function supProfile(res){
         await axios.post('http://localhost:3001/theProfile/supProfile', {res:res});
     }
     catch(e){
-        console.log('Error: la supretion du profile n as pas pus etre effectuer');
     }
 }
 
@@ -35,7 +34,6 @@ export async function addNewProfile(profile){
         await axios.post('http://localhost:3001/theProfile/addNewProfile', {profile:profile});
     }
     catch(e){
-        console.log('Error: l\'ajoue du profile a echouer');
     }
 }
 
@@ -44,7 +42,6 @@ export async function mouvProfileAll(res, profile){
         await axios.post('http://localhost:3001/theProfile/mouvProfileAll', {res:res, profile:profile});
     }
     catch(e){
-        console.log('Error: la modification du profile a echouer');
     }
 }
 
@@ -53,7 +50,6 @@ export async function mouvProfile(type, res, titreModif, modif){
         await axios.post('http://localhost:3001/theProfile/mouvProfile', {type:type, res:res, titreModif:titreModif, modif:modif});
     }
     catch(e){
-        console.log('Error: la modification du profile a echouer');
     }
 }
 export async function CheckPassword(mail, password){
@@ -62,6 +58,15 @@ export async function CheckPassword(mail, password){
         return (profile);
     }
     catch(e){
-        console.log('Error: l\'identification du profile a echouer');
+    }
+}
+
+
+export async function takeImgBlob(url){
+    try{
+        let blob = await axios.get(url, {responseType:'blob'});
+        return blob.data;
+    }
+    catch(e){
     }
 }

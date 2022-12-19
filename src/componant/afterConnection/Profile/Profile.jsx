@@ -1,17 +1,18 @@
 import { useState, useRef } from "react";
-import { takeAllProfile, takeOneProfile, supProfile, addNewProfile, mouvProfile, mouvProfileAll, CheckPassword  } from './../../../utile/function/dataProfile'
+import { takeAllProfile, takeImgBlob, takeOneProfile, supProfile, addNewProfile, mouvProfile, mouvProfileAll, CheckPassword  } from '../../../utile/function/profile/dataProfile'
 import ComposantFormationForm from './formation/formation'
-import ComposantBtnImg from './btnImg/btnImg'
+import BtnImg from './btnImg/btnImg';            
 
 
 
 function ComposantProfile(data) {
     let [profileTmp, setProfileTmp] = useState(data.profile)
-    let [formation, setFormation] = useState({id:-1,name:' ',photo:' ',niveau:' ',debut:' ',fin:' ',text:' ',idProfile:profileTmp.id});
-    let [competance, setCompetance] = useState({id:-1,name:' ',photo:' ',text:' ',idProfile:profileTmp.id});
-    let [portfolio, setPortfolio] = useState({id:-1,name:' ',photo:' ',audio:' ',lien:' ',text:' ',idProfile:profileTmp.id});
+    let [formation, setFormation] = useState({id:-1,name:'G',photo:' ',niveau:' ',debut:' ',fin:' ',text:' ',idProfile:profileTmp.id});
+    let [competance, setCompetance] = useState({id:-1,name:'H',photo:' ',text:' ',idProfile:profileTmp.id});
+    let [portfolio, setPortfolio] = useState({id:-1,name:'I',photo:' ',audio:' ',lien:' ',text:' ',idProfile:profileTmp.id});
+    let [imgProfile, setImgProfile] = useState();
 
-    let [testImg, setTestImg] = useState();
+
     function handleChangeProfile(e){
         let tmp = {
             ...profileTmp,
@@ -39,9 +40,6 @@ function ComposantProfile(data) {
                 tmp[category][i] = newElement;
             }
         }
-        setFormation({id:-1,name:' ',photo:' ',niveau:' ',debut:' ',fin:' ' ,text:' ',idProfile:profileTmp.id});
-        setCompetance({id:-1,name:' ',photo:' ',text:' ',idProfile:profileTmp.id});
-        setPortfolio({id:-1,name:' ',photo:' ',audio:' ',lien:' ',text:' ',idProfile:profileTmp.id});
     }
 
     function handleClick(e){
@@ -63,11 +61,32 @@ function ComposantProfile(data) {
         })
         return (res);
     }
+    function ftMouvImgProfile(name){
+        setProfileTmp({
+            ...profileTmp,
+            photo:name,
+        })
+    }
 
+
+    async function initBtnImg() {
+        try{
+            let tmpBlob = await takeImgBlob('http://localhost:3001/theProfile/sendImage' + profileTmp['photo']);
+            let tmp = await  BtnImg(tmpBlob, 'InputIdForPhotoProfile', ftMouvImgProfile);
+            if (!imgProfile || (tmp && tmp.props.name != imgProfile.props.name))
+            {
+                setImgProfile(tmp);
+            }
+            
+        } catch(e){
+        }
+    } 
+    initBtnImg();
     return (
     <div className="Profile">
         <form className="ProfileForm">
-            <ComposantBtnImg profileTmp={profileTmp} setProfileTmp={setProfileTmp}/>
+            {imgProfile ?imgProfile:<></>}
+
             <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputNom" name='nom' value={profileTmp.nom} placeholder="Uzumaki..."/>
             <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputPrenom" name='prenom' value={profileTmp.prenom} placeholder="Naruto..."/>
             <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputDateNaissance" name='dateNaissance' value={profileTmp.dateNaissance} placeholder="24/04/1998..."/>
@@ -82,25 +101,26 @@ function ComposantProfile(data) {
 
         </form>
         <div>
-            <select onChange={(e) => {e.target.value != -1 ? setFormation(profileTmp.formations[e.target.value]):setFormation({id:-1,name:' ',photo:' ',niveau:' ',debut:' ',fin:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='formation'>
+
+            <select onChange={(e) => {e.target.value != -1 ? setFormation(profileTmp.formations[e.target.value]):setFormation({id:-1,name:'D',photo:'2',niveau:' ',debut:' ',fin:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='formation'>
                 <option value={-1}>Add formations</option>
                 {createOptionFormation(profileTmp.formations)}
             </select>
-            {ComposantFormationForm(formation, setFormation, profileTmp, setProfileTmp)}
+            {ComposantFormationForm(formation, setFormation, 'InputIdForPhotoFormation')}
         </div>
         <div>
-            <select onChange={(e) => {e.target.value != -1 ? setCompetance(profileTmp.competances[e.target.value]):setCompetance({id:-1,name:' ',photo:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='competance'>
+            <select onChange={(e) => {e.target.value != -1 ? setCompetance(profileTmp.competances[e.target.value]):setCompetance({id:-1,name:'E',photo:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='competance'>
                 <option value={-1}>Add formations</option>
                 {createOptionFormation(profileTmp.competances)}
             </select>
-            {ComposantFormationForm(competance, setCompetance, profileTmp, setProfileTmp)}
+            {ComposantFormationForm(competance, setCompetance, 'InputIdForPhotoCompetance')}
         </div>
         <div>
-            <select onChange={(e) => {e.target.value != -1 ? setPortfolio(profileTmp.portfolio[e.target.value]):setPortfolio({id:-1,name:' ',photo:' ',audio:' ',lien:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='competance'>
+            <select onChange={(e) => {e.target.value != -1 ? setPortfolio(profileTmp.portfolio[e.target.value]):setPortfolio({id:-1,name:'F',photo:' ',audio:' ',lien:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='competance'>
                 <option value={-1}>Add formations</option>
                 {createOptionFormation(profileTmp.portfolio)}
             </select>
-            {ComposantFormationForm(portfolio, setPortfolio, profileTmp, setProfileTmp)}
+            {ComposantFormationForm(portfolio, setPortfolio, 'InputIdForPhotoPortfolio')}
         </div>
     </div>
     );

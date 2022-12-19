@@ -3,7 +3,7 @@ import './../../2) styles/index.scss'
 import { useState } from 'react';
 import ConnectApp from '../connectApp/connectApp';
 import axios from 'axios';
-import { takeAllProfile, takeOneProfile, supProfile, addNewProfile, mouvProfile, CheckPassword  } from './../../utile/function/dataProfile'
+import { takeAllProfile, takeOneProfile, supProfile, addNewProfile, mouvProfile, CheckPassword  } from './../../utile/function/profile/dataProfile'
 
 
 
