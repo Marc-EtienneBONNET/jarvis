@@ -30,14 +30,18 @@ function ComposantProfile(data) {
         else if (category === 'competances')
             newElement = competance;
         else if (category === 'portfolio')
+        {
             newElement = portfolio;
+        }
         if (newElement.id === -1 && newElement.name[1])
             tmp[category].push(newElement);
         else{
             for (let i = 0;tmp[category][i]; i++)
             {
                 if (tmp[category][i].id === newElement.id)
-                tmp[category][i] = newElement;
+                {
+                    tmp[category][i] = newElement;
+                }
             }
         }
     }

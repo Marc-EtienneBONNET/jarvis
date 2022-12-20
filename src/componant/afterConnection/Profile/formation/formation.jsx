@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { takeAllProfile,takeImgBlob, takeOneProfile, supProfile, addNewProfile, mouvProfile, mouvProfileAll, CheckPassword  } from '../../../../utile/function/profile/dataProfile'
 import BtnImg from './../btnImg/btnImg'
+import audioBtn from './../audioBtn/audioBtn'
 
 
 function ComposantFormationForm(formation, setFormation, nameId) {
@@ -38,9 +39,14 @@ function ComposantFormationForm(formation, setFormation, nameId) {
             if (!img || (tmp && tmp.props.name != img.props.name))
                 setImg(tmp);
     }
+    async function initBtnAudio(InputId, img, setImgName, setImg ) {
+        let tmp = await  audioBtn(InputId, setImgName);
+        if (!img || (tmp && tmp.props.name != img.props.name))
+            setImg(tmp);
+}
     initBtnImg(formation.photo,nameId, imgFormations, setImgName,setImgFormations);
     if (formation.audio)
-        initBtnImg(formation.audio, 'InputIdForPhotoAudio', audio, setAudioName, setAudio);
+        initBtnAudio('InputIdForPhotoAudio', audio, setAudioName, setAudio);
     if ((imgName && formation.photo !== imgName) || (audioName && formation.audio !== audioName))
         handleChangeProfile();
     return (
