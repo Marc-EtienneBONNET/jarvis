@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { takeAllProfile, takeImgBlob, takeOneProfile, supProfile, addNewProfile, mouvProfile, mouvProfileAll, CheckPassword  } from '../../../utile/function/profile/dataProfile'
 import ComposantFormationForm from './formation/formation'
 import BtnImg from './btnImg/btnImg';            
-
+//test
 
 
 function ComposantProfile(data) {
