@@ -10,6 +10,8 @@ drop table formations;
 drop table competances;
 drop table portfolio;
 drop table my_event;
+
+$2b$08$Lj7e5Mladk/zlvaRCcjIUe/OgVsK/RF/rFgghh3dQPLGmtOX48mYW
 */
 export async function takeAllProfile(){
     let retour = (await axios.get('http://localhost:3001/theProfile/supProfile')).data;

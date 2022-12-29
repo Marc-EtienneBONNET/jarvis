@@ -7,9 +7,9 @@ import BtnImg from './btnImg/btnImg';
 
 function ComposantProfile(data) {
     let [profileTmp, setProfileTmp] = useState(data.profile)
-    let [formation, setFormation] = useState({id:-1,name:'G',photo:' ',niveau:' ',debut:' ',fin:' ',text:' ',idProfile:profileTmp.id});
-    let [competance, setCompetance] = useState({id:-1,name:'H',photo:' ',text:' ',idProfile:profileTmp.id});
-    let [portfolio, setPortfolio] = useState({id:-1,name:'I',photo:' ',audio:' ',lien:' ',text:' ',idProfile:profileTmp.id});
+    let [formation, setFormation] = useState({id:-1,lien:' ', name:' ',photo:' ',niveau:' ',debut:' ',fin:' ',text:' ',idProfile:profileTmp.id});
+    let [competance, setCompetance] = useState({id:-1,category:' ', name:' ',photo:' ',text:' ',idProfile:profileTmp.id});
+    let [portfolio, setPortfolio] = useState({id:-1,name:' ',photo:' ',audio:' ',lien:' ',text:' ',idProfile:profileTmp.id});
     let [imgProfile, setImgProfile] = useState();
 
 
@@ -100,28 +100,31 @@ function ComposantProfile(data) {
             <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputLinkedin" name='linkedin' value={profileTmp.linkedin} placeholder="Lien linkedin"/>
             <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputGithub" name='github' value={profileTmp.github} placeholder="Lien github"/>
             <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputCoddingGame" name='codingGame' value={profileTmp.codingGame} placeholder="Lien codingGame"/>
+            <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputCoddingGame" name='disponibilite' value={profileTmp.disponibilite} placeholder="24/04/..."/>
+            <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputCoddingGame" name='textDescriptif' value={profileTmp.textDescriptif} placeholder="blabla"/>
+            <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputCoddingGame" name='contrat' value={profileTmp.contrat} placeholder="CDI / CDD / ..."/>
             <input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputSolde" name='solde' value={profileTmp.solde} placeholder="100..."/>
             <input onClick={(e) => {handleClick(e);}}  type='button' value="Modifier" className="ProfileFormInput ProfileFormInputBtn" placeholder="test"/>
 
         </form>
         <div>
 
-            <select onChange={(e) => {e.target.value != -1 ? setFormation(profileTmp.formations[e.target.value]):setFormation({id:-1,name:'D',photo:'2',niveau:' ',debut:' ',fin:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='formation'>
+            <select onChange={(e) => {e.target.value != -1 ? setFormation(profileTmp.formations[e.target.value]):setFormation({id:-1,lien:' ', name:' ',photo:'2',niveau:' ',debut:' ',fin:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='formation'>
                 <option value={-1}>Add formations</option>
                 {createOptionFormation(profileTmp.formations)}
             </select>
             {ComposantFormationForm(formation, setFormation, 'InputIdForPhotoFormation')}
         </div>
         <div>
-            <select onChange={(e) => {e.target.value != -1 ? setCompetance(profileTmp.competances[e.target.value]):setCompetance({id:-1,name:'E',photo:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='competance'>
-                <option value={-1}>Add formations</option>
+            <select onChange={(e) => {e.target.value != -1 ? setCompetance(profileTmp.competances[e.target.value]):setCompetance({id:-1,name:' ',category:' ', photo:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='competance'>
+                <option value={-1}>Add Competance</option>
                 {createOptionFormation(profileTmp.competances)}
             </select>
             {ComposantFormationForm(competance, setCompetance, 'InputIdForPhotoCompetance')}
         </div>
         <div>
-            <select onChange={(e) => {e.target.value != -1 ? setPortfolio(profileTmp.portfolio[e.target.value]):setPortfolio({id:-1,name:'F',photo:' ',audio:' ',lien:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='competance'>
-                <option value={-1}>Add formations</option>
+            <select onChange={(e) => {e.target.value != -1 ? setPortfolio(profileTmp.portfolio[e.target.value]):setPortfolio({id:-1,name:' ',photo:' ',audio:' ',lien:' ',text:' ',idProfile:profileTmp.id})}} id="pet-select" className="ProfileFormInput" name='competance'>
+                <option value={-1}>Add portfolio</option>
                 {createOptionFormation(profileTmp.portfolio)}
             </select>
             {ComposantFormationForm(portfolio, setPortfolio, 'InputIdForPhotoPortfolio')}

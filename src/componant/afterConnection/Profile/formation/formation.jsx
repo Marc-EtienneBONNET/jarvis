@@ -53,6 +53,7 @@ function ComposantFormationForm(formation, setFormation, nameId) {
         <form className="ProfileForm">
             {imgFormations ?imgFormations:<></>}
             {audio ?<><h4>audio : </h4>{audio}</>:<></>}
+            {formation.category?<input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputNom" name='category' value={formation.category} placeholder="Dev web.."/>:<></>}
             {formation.name?<input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputNom" name='name' value={formation.name} placeholder="Ecole 42.."/>:<></>}
             {formation.niveau?<input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputDateNaissance" name='niveau' value={formation.niveau} placeholder="bac+5..."/>:<></>}
             {formation.debut?<input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputAdress" name='debut' value={formation.debut} placeholder="24/04/19..."/>:<></>}
