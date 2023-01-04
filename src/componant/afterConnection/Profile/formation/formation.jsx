@@ -58,11 +58,11 @@ function ComposantFormationForm(formation, setFormation, nameId) {
             {formation.niveau?<input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputDateNaissance" name='niveau' value={formation.niveau} placeholder="bac+5..."/>:<></>}
             {formation.debut?<input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputAdress" name='debut' value={formation.debut} placeholder="24/04/19..."/>:<></>}
             {formation.fin?<input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputMail" name='fin' value={formation.fin} placeholder="24/04/19..."/>:<></>}
-            {formation.lien?<input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputPrenom" name='lien' value={formation.lien} placeholder="https://..."/>:<></>}
+            {formation.lien?<input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputPrenom" name='lien' value={formation.lien} placeholder="http://..."/>:<></>}
             {formation.text?<input onChange={(e) => {handleChangeProfile(e)}} type='text' className="ProfileFormInput ProfileFormInputTel" name='text' value={formation.text} placeholder="blabla..."/>:<></>}
     </form>
     );
 }
-
+// Développement algorithmique
 export default ComposantFormationForm;
 

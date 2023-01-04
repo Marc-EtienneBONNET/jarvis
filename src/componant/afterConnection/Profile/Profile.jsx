@@ -75,6 +75,7 @@ function ComposantProfile(data) {
 
     async function initBtnImg() {
         try{
+            console.log('on passe bien par la !');
             let tmpBlob = await takeImgBlob('http://localhost:3001/theProfile/sendImage' + profileTmp['photo']);
             let tmp = await  BtnImg(tmpBlob, 'InputIdForPhotoProfile', ftMouvImgProfile);
             if (!imgProfile || (tmp && tmp.props.name != imgProfile.props.name))
@@ -86,6 +87,7 @@ function ComposantProfile(data) {
         }
     } 
     initBtnImg();
+    console.log('imgProfile : ',imgProfile);
     return (
     <div className="Profile">
         <form className="ProfileForm">
