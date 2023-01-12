@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import axios from 'axios';
+import { url } from './../../../../utile/variable/variable'
 
 function audioBtn(inputId, ftMouvName){
     let nameAudio ;
@@ -10,7 +11,7 @@ function audioBtn(inputId, ftMouvName){
         const photo = document.getElementById(''+inputId);
         if (photo && photo.files && photo.files[0]) {
             formData.append('audio', photo.files[0]);
-            objPhoto = await fetch('http://localhost:3001/theProfile/uplodAudio', {
+            objPhoto = await fetch(url + 'theProfile/uplodAudio', {
                 method: 'POST',
                 body: formData,
             })

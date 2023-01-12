@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { url } from './../variable/variable'
 
 async function takeEvents(events, profile){
-    let tmp = ((await axios.post('http://localhost:3001/event/postTakeAllForOneUser', profile.profile)).data).map((element) => {
+    let tmp = ((await axios.post(url + 'event/postTakeAllForOneUser', profile.profile)).data).map((element) => {
                 return ({
                     ...element,
                     debut: new Date(element.debut),

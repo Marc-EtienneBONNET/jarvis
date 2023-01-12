@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { takeAllProfile, takeImgBlob, takeOneProfile, supProfile, addNewProfile, mouvProfile, mouvProfileAll, CheckPassword  } from '../../../utile/function/profile/dataProfile'
 import ComposantFormationForm from './formation/formation'
 import BtnImg from './btnImg/btnImg';            
+import { url } from './../../../utile/variable/variable'
 //test
 
 
@@ -76,7 +77,7 @@ function ComposantProfile(data) {
     async function initBtnImg() {
         try{
             console.log('on passe bien par la !');
-            let tmpBlob = await takeImgBlob('http://localhost:3001/theProfile/sendImage' + profileTmp['photo']);
+            let tmpBlob = await takeImgBlob(url + 'theProfile/sendImage' + profileTmp['photo']);
             let tmp = await  BtnImg(tmpBlob, 'InputIdForPhotoProfile', ftMouvImgProfile);
             if (!imgProfile || (tmp && tmp.props.name != imgProfile.props.name))
             {

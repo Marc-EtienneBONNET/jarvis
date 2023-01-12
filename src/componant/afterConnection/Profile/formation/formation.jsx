@@ -2,6 +2,7 @@ import { useState } from "react";
 import { takeAllProfile,takeImgBlob, takeOneProfile, supProfile, addNewProfile, mouvProfile, mouvProfileAll, CheckPassword  } from '../../../../utile/function/profile/dataProfile'
 import BtnImg from './../btnImg/btnImg'
 import audioBtn from './../audioBtn/audioBtn'
+import { url } from './../../../../utile/variable/variable'
 
 
 function ComposantFormationForm(formation, setFormation, nameId) {
@@ -34,7 +35,7 @@ function ComposantFormationForm(formation, setFormation, nameId) {
     async function initBtnImg(nameImg, InputId, img, setImgName, setImg ) {
             let tmpBlob;
             if (nameImg[1])
-                tmpBlob = await takeImgBlob('http://localhost:3001/theProfile/sendImage' + nameImg);
+                tmpBlob = await takeImgBlob(url + 'theProfile/sendImage' + nameImg);
             let tmp = await  BtnImg(tmpBlob, InputId, setImgName);
             if (!img || (tmp && tmp.props.name != img.props.name))
                 setImg(tmp);

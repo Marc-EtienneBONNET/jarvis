@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { url } from './../../variable/variable'
 /*
 select * from profile;
 select * from formations;
@@ -14,18 +15,18 @@ drop table my_event;
 $2b$08$Lj7e5Mladk/zlvaRCcjIUe/OgVsK/RF/rFgghh3dQPLGmtOX48mYW
 */
 export async function takeAllProfile(){
-    let retour = (await axios.get('http://localhost:3001/theProfile/supProfile')).data;
+    let retour = (await axios.get(url + 'theProfile/supProfile')).data;
     return (retour);
 }
 
 export async function takeOneProfile(source, res){
-    let retour = (await axios.post('http://localhost:3001/theProfile/takeOneProfile', {source:source, res:res})).data;
+    let retour = (await axios.post(url + 'theProfile/takeOneProfile', {source:source, res:res})).data;
     return (retour);
 }
 
 export async function supProfile(res){
     try{
-        await axios.post('http://localhost:3001/theProfile/supProfile', {res:res});
+        await axios.post(url + 'theProfile/supProfile', {res:res});
     }
     catch(e){
     }
@@ -33,7 +34,7 @@ export async function supProfile(res){
 
 export async function addNewProfile(profile){
     try{
-        await axios.post('http://localhost:3001/theProfile/addNewProfile', {profile:profile});
+        await axios.post(url + 'theProfile/addNewProfile', {profile:profile});
     }
     catch(e){
     }
@@ -41,7 +42,7 @@ export async function addNewProfile(profile){
 
 export async function mouvProfileAll(res, profile){
     try{
-        await axios.post('http://localhost:3001/theProfile/mouvProfileAll', {res:res, profile:profile});
+        await axios.post(url + 'theProfile/mouvProfileAll', {res:res, profile:profile});
     }
     catch(e){
     }
@@ -49,20 +50,20 @@ export async function mouvProfileAll(res, profile){
 
 export async function mouvProfile(type, res, titreModif, modif){
     try{
-        await axios.post('http://localhost:3001/theProfile/mouvProfile', {type:type, res:res, titreModif:titreModif, modif:modif});
+        await axios.post(url + 'theProfile/mouvProfile', {type:type, res:res, titreModif:titreModif, modif:modif});
     }
     catch(e){
     }
 }
 export async function CheckPassword(mail, password){
     try{
-        const profile = (await axios.post('http://localhost:3001/theProfile/CheckPassword', {mail:mail, password:password})).data;
+        console.log(url + 'theProfile/CheckPassword');
+        const profile = (await axios.post(url + 'theProfile/CheckPassword', {mail:mail, password:password})).data;
         return (profile);
     }
     catch(e){
     }
 }
-
 
 export async function takeImgBlob(url){
     try{

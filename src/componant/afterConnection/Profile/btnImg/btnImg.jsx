@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import axios from 'axios';
+import { url } from './../../../../utile/variable/variable'
 
 function BtnImg(blobImg, inputId, ftMouvName){
     let objImg ;
@@ -11,7 +12,7 @@ function BtnImg(blobImg, inputId, ftMouvName){
         const photo = document.getElementById(''+inputId);
         if (photo && photo.files && photo.files[0]) {
             formData.append('img', photo.files[0]);
-            objPhoto = await fetch('http://localhost:3001/theProfile/uplodImg', {
+            objPhoto = await fetch(url + 'theProfile/uplodImg', {
                 method: 'POST',
                 body: formData,
             })

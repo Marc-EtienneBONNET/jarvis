@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { checkWichBigDay } from '../../../utile/function/heureDate'
+import { url } from './../../../utile/variable/variable'
 
 function ComposantFromChangeEvent(arg){
 
@@ -89,7 +90,7 @@ function ComposantFromChangeEvent(arg){
         }
         else
         {
-            axios.post('http://localhost:3001/event/postModif', newEvent)
+            axios.post(url + 'event/postModif', newEvent)
             if (arg.setChangeEvent)
                 arg.setChangeEvent(undefined);
             if (arg.setDateForNewEvent)
@@ -100,7 +101,7 @@ function ComposantFromChangeEvent(arg){
     function handleSupEvent(myEvent){
         if (myEvent.id === -1)
             return ;
-        axios.post('http://localhost:3001/event/getRemoveById', {id : myEvent})
+        axios.post(url + 'event/getRemoveById', {id : myEvent})
         handleQuitEvent();
     }
 
